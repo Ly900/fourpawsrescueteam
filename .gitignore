@@ -1,0 +1,24 @@
+# Build
+dist/
+build/
+target/
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+
+# Logs and caches
+*.log
+__pycache__/
+*.pyc
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local config
+.env
+*.pem
