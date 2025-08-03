@@ -260,6 +260,10 @@ a.sf-with-ul::after {
 
 .donate-link:hover {
 	background-color: #3b5991;
+	border-color: white;
+	@media (min-width: 1001px) {
+		border-color: #3b5991;
+	}
 }
 
 .donate-link:active {
