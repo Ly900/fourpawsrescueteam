@@ -49,9 +49,9 @@ a.sf-with-ul::after {
 	vertical-align: text-bottom;
 }
 
-/* Desktop-only Tier 1 links */
-.nav-menu a {
-	color: #3b5991;
+/* Affecting Close Mnu button only */
+.nav-menu a:hover {
+	color: #ffca28;
 }
 
 /* Tier 1 links */
