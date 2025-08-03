@@ -69,12 +69,21 @@ a.sf-with-ul::after {
 	}
 }
 
-/* Tier 2 menu links */
-.nav-menu ul.sub-menu a {
-	text-shadow: 0 0 2px #361c04f2;
+/* Tier 1 selected links (active page) */
+.nav-menu .current_page_item > a {
+	color: #ffca28;
+	@media (min-width: 1001px) {
+		color: #213862;
+	}
 }
 
 /* Tier 2 menu links */
+.nav-menu ul.sub-menu a {
+	text-shadow: 0 0 2px #361c04f2;
+	color: white;
+}
+
+/* Tier 2 menu links on hover */
 .nav-menu ul.sub-menu a:hover {
 	transition-duration: 0.2s;
 	@media (min-width: 1001px) {
@@ -144,6 +153,7 @@ a.sf-with-ul::after {
 
 .logo p.site-title a {
 	text-shadow: 0 0 2px #361c04f2;
+	color: #fff !important;
 	@media (min-width: 1200px) {
 		font-size: 2rem;
 	}
