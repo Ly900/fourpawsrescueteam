@@ -70,8 +70,11 @@ a.sf-with-ul::after {
 }
 
 /* Tier 1 selected links (active page) */
-.nav-menu .current_page_item > a {
-	color: #ffca28;
+.nav-menu .current_page_item > a,
+.nav-menu .current-menu-item > a,
+.nav-menu .current_page_ancestor > a {
+	color: #ffca28 !important;
+
 	@media (min-width: 1001px) {
 		color: #213862;
 	}
