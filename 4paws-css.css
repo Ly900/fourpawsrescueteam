@@ -341,6 +341,10 @@ a.sf-with-ul::after {
 	color: white !important;
 }
 
+#footer h3 {
+	border-bottom-color: #ffca28;
+}
+
 /* Footer code above */
 
 /* Carousel code below */
