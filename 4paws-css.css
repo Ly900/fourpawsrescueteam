@@ -335,6 +335,28 @@ a.sf-with-ul::after {
 
 /* Header code above */
 
+/* Carousel code below */
+#slider .carousel-control-prev-icon,
+#slider .carousel-control-next-icon {
+	background-color: #3b5991;
+}
+/* Carousel code above */
+
+/* Back to Top code below */
+
+.back-to-top {
+	background-color: #ffca28;
+}
+
+.back-to-top:hover {
+	color: black;
+}
+
+.back-to-top::before {
+	border-bottom-color: #ffca28;
+}
+/* Back to Top code above */
+
 /* Footer code below */
 
 .footerinner .widget-title {
@@ -346,10 +368,3 @@ a.sf-with-ul::after {
 }
 
 /* Footer code above */
-
-/* Carousel code below */
-#slider .carousel-control-prev-icon,
-#slider .carousel-control-next-icon {
-	background-color: #3b5991;
-}
-/* Carousel code above */
