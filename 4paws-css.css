@@ -378,8 +378,16 @@ a.sf-with-ul::after {
 }
 
 input[type='search'] {
-	color: white !important;
+	color: #213862 !important;
 	font-weight: 500;
+}
+
+input[type='search']:focus {
+	outline: 1px solid white;
+}
+
+input.search-field {
+	background: white;
 }
 
 /* Footer code above */
