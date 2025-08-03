@@ -410,4 +410,8 @@ input[type='search']:focus {
 	outline-offset: 5px;
 }
 
+#footer .search-form {
+	gap: 0.5rem;
+}
+
 /* Footer code above */
