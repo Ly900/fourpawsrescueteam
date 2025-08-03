@@ -387,13 +387,21 @@ input[type='search']:focus {
 }
 
 #footer input.search-field {
-	background: white;
+	background-color: white;
 	transition: none;
 }
 
+/* Search button */
 #footer input[type='submit'] {
-	background-color: #c2cee5;
-	color: #213862;
+	background-color: #213862;
+	color: white;
+	transition: background-color 0.5s ease;
+}
+
+/* Search button on hover */
+#footer input[type='submit']:hover {
+	background-color: #081733;
+	color: #fff;
 }
 
 #footer input:focus {
