@@ -49,25 +49,20 @@ a.sf-with-ul::after {
 	vertical-align: text-bottom;
 }
 
-/* Desktop-only Tier 1 links */
+/* Tier 1 links */
 .nav-menu a {
 	color: #3b5991;
+}
+
+/* Affects the Close Menu button in mobile */
+.nav-menu a:hover {
+	color: #ffca28;
 }
 
 /* Tier 1 links */
 .nav-menu ul li a {
 	font-weight: 700;
 	transition-duration: 0.2s;
-}
-
-/* Tier 1 links on hover */
-.nav-menu ul li a:hover {
-	color: #ffca28;
-	font-weight: 700;
-	border-left-color: #ffca28;
-	@media (min-width: 1001px) {
-		color: #213862;
-	}
 }
 
 /* Tier 1 and tier 2 selected links (active page) */
@@ -97,7 +92,6 @@ a.sf-with-ul::after {
 /* Tier 2 menu links on hover */
 .nav-menu ul.sub-menu a:hover {
 	transition-duration: 0.2s;
-	/* border-left: 4px solid #ffca28; */
 	@media (min-width: 1001px) {
 		color: white;
 	}
