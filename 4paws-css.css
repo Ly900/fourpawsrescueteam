@@ -76,6 +76,14 @@ a.sf-with-ul::after {
 	}
 }
 
+/* Tier 1 ancestor link - mobile only */
+.nav-menu .current_page_ancestor > a {
+	color: #ffca28;
+	@media (min-width: 1001px) {
+		color: #213862;
+	}
+}
+
 /* Tier 2 menu links */
 .nav-menu ul.sub-menu a {
 	text-shadow: 0 0 2px #361c04f2;
