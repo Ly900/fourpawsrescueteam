@@ -172,6 +172,10 @@ a.sf-with-ul::after {
 	}
 }
 
+.logo p.site-title a:hover {
+	color: #ffd54f !important;
+}
+
 .custom-logo-link {
 	@media (min-width: 1001px) {
 		display: inline-block;
@@ -220,6 +224,10 @@ a.sf-with-ul::after {
 .contact-details p.bold-font {
 	color: white;
 	font-weight: 600;
+}
+
+.contact-details p:not(.bold-font) a:hover {
+	color: #ffdd78;
 }
 
 .contact-details .conatct-font {
@@ -414,5 +422,4 @@ input[type='search']:focus {
 #footer .search-form {
 	gap: 0.5rem;
 }
-
 /* Footer code above */
