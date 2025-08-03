@@ -367,8 +367,14 @@ a.sf-with-ul::after {
 	border-bottom-color: #ffca28;
 }
 
+.footerinner ul li a {
+	font-weight: 500;
+	transition: color 0.5s ease;
+}
+
 .footerinner ul li a:hover {
-	color: #ffca28;
+	color: #ffdd78;
+	text-shadow: 0 0 2px #361c04f2;
 }
 
 /* Footer code above */
