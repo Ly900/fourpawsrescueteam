@@ -250,6 +250,8 @@ a.sf-with-ul::after {
 	transition: 0s;
 	transition: background-color 0.5s;
 	position: relative;
+	background-color: #eaeffa;
+	border-color: #3b5991;
 	@media (min-width: 1001px) {
 		width: auto;
 		padding-inline: 4rem;
@@ -257,12 +259,10 @@ a.sf-with-ul::after {
 }
 
 .donate-link:hover {
-	background-color: white;
-	border-color: #3b5991;
+	background-color: #3b5991;
 }
 
 .donate-link:active {
-	background-color: #dcdfe5;
 	top: 3px;
 }
 
@@ -270,13 +270,14 @@ a.sf-with-ul::after {
 	display: block;
 	font-size: 1.25rem;
 	text-transform: uppercase;
-	text-shadow: 0 0 2px #361c04f2;
+	text-shadow: none;
 }
 
 .donate-link a,
 .donate-link:focus a,
 .donate-link:active a {
 	outline: none;
+	color: #3b5991;
 }
 
 .donate-link:has(a:focus-visible) {
@@ -288,18 +289,17 @@ a.sf-with-ul::after {
 }
 
 .donate-link i {
-	color: white;
 	margin-right: 0.25rem;
+	color: #eb0000;
 }
 
 .donate-link:hover a {
 	color: white;
-	color: #3b5991;
 	text-shadow: none;
 }
 
 .donate-link:hover i {
-	color: #eb0000;
+	color: white;
 }
 
 #header .container {
