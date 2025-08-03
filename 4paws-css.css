@@ -69,14 +69,10 @@ a.sf-with-ul::after {
 	}
 }
 
-/* Tier 1 selected links (active page) */
-.nav-menu .current_page_item > a,
-.nav-menu .current-menu-item > a,
-.nav-menu .current_page_ancestor > a {
-	color: #ffca28 !important;
-
+/* Tier 1 and tier 2 selected links (active page) */
+.nav-menu .current_page_item > a {
 	@media (min-width: 1001px) {
-		color: #213862;
+		color: #213862 !important;
 	}
 }
 
@@ -84,6 +80,9 @@ a.sf-with-ul::after {
 .nav-menu ul.sub-menu a {
 	text-shadow: 0 0 2px #361c04f2;
 	color: white;
+	@media (min-width: 1001px) {
+		color: white !important;
+	}
 }
 
 /* Tier 2 menu links on hover */
