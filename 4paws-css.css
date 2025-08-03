@@ -386,8 +386,19 @@ input[type='search']:focus {
 	outline: 1px solid white;
 }
 
-input.search-field {
+#footer input.search-field {
 	background: white;
+	transition: none;
+}
+
+#footer input[type='submit'] {
+	background-color: #c2cee5;
+	color: #213862;
+}
+
+#footer input:focus {
+	outline: 2px solid white;
+	outline-offset: 5px;
 }
 
 /* Footer code above */
