@@ -377,4 +377,9 @@ a.sf-with-ul::after {
 	text-shadow: 0 0 2px #361c04f2;
 }
 
+input[type='search'] {
+	color: white !important;
+	font-weight: 500;
+}
+
 /* Footer code above */
