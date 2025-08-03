@@ -349,7 +349,7 @@ a.sf-with-ul::after {
 }
 
 .back-to-top:hover {
-	color: black;
+	color: black !important;
 }
 
 .back-to-top::before {
