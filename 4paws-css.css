@@ -802,6 +802,12 @@ a.sf-with-ul::after {
 
 /* Header code above */
 
+/* Breadcrumb Code Below */
+.bradcrumbs a {
+	color: #fff !important;
+}
+/* Breadcrumb Code Above */
+
 /* Carousel code below */
 #slider .carousel-control-prev-icon,
 #slider .carousel-control-next-icon {
