@@ -259,8 +259,12 @@ a.sf-with-ul::after {
 	font-weight: 600;
 }
 
+.contact-details a {
+	color: #fff !important;
+}
+
 .contact-details p:not(.bold-font) a:hover {
-	color: #ffdd78;
+	color: #ffdd78 !important;
 }
 
 .contact-details .conatct-font {
