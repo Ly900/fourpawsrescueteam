@@ -819,6 +819,10 @@ a.sf-with-ul::after {
 .main-wrap-box .wp-block-button a {
 	color: #fff !important;
 }
+
+.main-wrap-box .wp-block-button a:hover {
+	text-decoration: none !important;
+}
 /* Main content styles below */
 
 /* Back to Top code below */
