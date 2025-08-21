@@ -19,6 +19,10 @@ body {
 	transition: none;
 }
 
+.main-wrap-box a:hover {
+	color: #213862 !important;
+}
+
 /* Remove underlines from links inside the Adoption Menu that appears in the templates with a left or right sidebar */
 .menu-adoption-menu-container a {
 	text-decoration: none;
