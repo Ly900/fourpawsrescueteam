@@ -524,7 +524,6 @@ a.sf-with-ul::after {
 
 /* Tier 1 links on hover */
 .nav-menu ul li a:hover {
-	color: #ffca28;
 	font-weight: 700;
 	border-left-color: #ffca28;
 	@media (min-width: 1001px) {
