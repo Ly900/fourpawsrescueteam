@@ -802,12 +802,6 @@ a.sf-with-ul::after {
 
 /* Header code above */
 
-/* Breadcrumb Code Below */
-.bradcrumbs a {
-	color: #fff !important;
-}
-/* Breadcrumb Code Above */
-
 /* Carousel code below */
 #slider .carousel-control-prev-icon,
 #slider .carousel-control-next-icon {
@@ -815,8 +809,19 @@ a.sf-with-ul::after {
 }
 /* Carousel code above */
 
-/* Back to Top code below */
+/* Breadcrumb Code Below */
+.bradcrumbs a {
+	color: #fff !important;
+}
+/* Breadcrumb Code Above */
 
+/* Main content styles below */
+.main-wrap-box .wp-block-button a {
+	color: #fff !important;
+}
+/* Main content styles below */
+
+/* Back to Top code below */
 .back-to-top {
 	background-color: #ffca28;
 }
