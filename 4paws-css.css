@@ -526,9 +526,6 @@ a.sf-with-ul::after {
 .nav-menu ul li a:hover {
 	font-weight: 700;
 	border-left-color: #ffca28;
-	@media (min-width: 1001px) {
-		color: #213862;
-	}
 }
 
 /* Tier 1 and tier 2 selected links (active page) */
