@@ -209,6 +209,7 @@ a.sf-with-ul::after {
 	text-shadow: 0 0 2px #361c04f2;
 	color: #fff !important;
 	text-decoration: none;
+	font-size: 1.5rem;
 	@media (min-width: 1200px) {
 		font-size: 2rem;
 	}
