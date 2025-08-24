@@ -42,6 +42,7 @@ div#sidelong-menu {
 
 div#sidelong-menu a {
 	color: #fff !important;
+	text-decoration: none;
 	@media (min-width: 1001px) {
 		color: #3b5991 !important;
 	}
@@ -207,6 +208,7 @@ a.sf-with-ul::after {
 .logo p.site-title a {
 	text-shadow: 0 0 2px #361c04f2;
 	color: #fff !important;
+	text-decoration: none;
 	@media (min-width: 1200px) {
 		font-size: 2rem;
 	}
@@ -268,6 +270,7 @@ a.sf-with-ul::after {
 
 .contact-details a {
 	color: #fff !important;
+	text-decoration: none;
 }
 
 .contact-details p:not(.bold-font) a:hover {
@@ -341,6 +344,7 @@ a.sf-with-ul::after {
 	font-size: 1.25rem;
 	text-transform: uppercase;
 	text-shadow: none;
+	text-decoration: none;
 }
 
 .donate-link a,
@@ -529,6 +533,7 @@ input[type='search']:focus {
 	font-size: 20px;
 	line-height: 1.5;
 	font-weight: 500;
+	text-decoration: underline;
 }
 
 .elementor-element a:hover {
