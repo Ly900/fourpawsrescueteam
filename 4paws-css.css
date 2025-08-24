@@ -41,6 +41,7 @@ div#sidelong-menu a {
 		color: #3b5991 !important;
 	}
 }
+
 div#sidelong-menu .sub-menu a {
 	color: #fff !important;
 }
@@ -52,6 +53,7 @@ div#sidelong-menu .sub-menu a {
 
 .toggle-menu button {
 	background-color: #3b5991;
+	font-weight: 500;
 }
 
 .nav ul ul {
@@ -74,10 +76,6 @@ div#sidelong-menu .sub-menu a {
 	@media (min-width: 1001px) {
 		border-bottom: none;
 	}
-}
-
-.toggle-menu button {
-	font-weight: 500;
 }
 
 /* Align Submenu caret */
@@ -468,277 +466,6 @@ input[type='search']:focus {
 }
 /* Footer code above */
 
-/* Global styles below */
-
-/* Header code below */
-div#sidelong-menu {
-	background-color: #3b5991;
-}
-
-.toggle-menu {
-	background-color: #3b5991;
-	border-bottom: 1px solid #627aa7;
-}
-
-.toggle-menu button {
-	background-color: #3b5991;
-}
-
-.nav ul ul {
-	border-color: #2e4879;
-}
-
-.nav ul ul a {
-	background-color: #3b5991;
-}
-
-.nav ul li:first-child a {
-	border-top: 1px solid #627aa7;
-	@media (min-width: 1001px) {
-		border-top: none;
-	}
-}
-
-.nav ul li a {
-	border-bottom: 1px solid #627aa7;
-	@media (min-width: 1001px) {
-		border-bottom: none;
-	}
-}
-
-.toggle-menu button {
-	font-weight: 500;
-}
-
-/* Align Submenu caret */
-a.sf-with-ul::after {
-	vertical-align: text-bottom;
-}
-
-/* Affecting Close Mnu button only */
-.nav-menu a:hover {
-	color: #ffca28;
-}
-
-/* Tier 1 links */
-.nav-menu ul li a {
-	font-weight: 700;
-	transition-duration: 0.2s;
-}
-
-/* Tier 1 links on hover */
-.nav-menu ul li a:hover {
-	font-weight: 700;
-	border-left-color: #ffca28;
-}
-
-/* Tier 1 and tier 2 selected links (active page) */
-.nav-menu .current_page_item > a {
-	color: #ffca28;
-	@media (min-width: 1001px) {
-		color: #213862 !important;
-	}
-}
-
-/* Tier 1 ancestor link - mobile only */
-.nav-menu .current_page_ancestor > a {
-	color: #ffca28;
-	@media (min-width: 1001px) {
-		color: #213862;
-	}
-}
-
-/* Tier 2 menu links */
-.nav-menu ul.sub-menu a {
-	text-shadow: 0 0 2px #361c04f2;
-	color: white;
-	@media (min-width: 1001px) {
-		color: white !important;
-	}
-}
-
-/* Tier 2 menu links on hover */
-.nav-menu ul.sub-menu a:hover {
-	transition-duration: 0.2s;
-	/* border-left: 4px solid #FFCA28; */
-	@media (min-width: 1001px) {
-		color: white;
-	}
-}
-
-.menu-sec {
-	padding-left: 0 !important;
-	@media (min-width: 1001px) {
-		padding-left: 4rem !important;
-		padding-block: 1rem;
-		margin-bottom: -3rem !important;
-	}
-}
-
-/* Header content outside of the nav menu */
-.top-header {
-	padding-top: 0.5rem;
-	padding-bottom: 0;
-	letter-spacing: 1px;
-	@media (min-width: 1001px) {
-		padding-block: 2rem;
-	}
-}
-
-.top-header .container .row {
-	@media (min-width: 768px) {
-		display: grid;
-		grid-template-areas:
-			'logo logo logo'
-			'email phone social';
-		justify-content: center;
-		column-gap: 0.25rem;
-	}
-	@media (min-width: 1001px) {
-		grid-template-areas: 'logo email phone social';
-		align-items: center;
-		justify-content: space-between;
-	}
-}
-
-.top-header .container .row > div {
-	@media (min-width: 768px) {
-		width: 100%;
-		align-self: start !important;
-	}
-	@media (min-width: 1001px) {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
-	}
-}
-
-.logo {
-	@media (min-width: 768px) {
-		width: 100%;
-		grid-area: logo;
-		text-align: center;
-	}
-}
-
-.site-logo {
-	margin-bottom: 0.25rem;
-	display: inline-block;
-}
-
-.logo p.site-title a {
-	text-shadow: 0 0 2px #361c04f2;
-	color: #fff !important;
-	@media (min-width: 1200px) {
-		font-size: 2rem;
-	}
-}
-
-.logo p.site-title a:hover {
-	color: #ffd54f !important;
-}
-
-.custom-logo-link {
-	@media (min-width: 1001px) {
-		display: inline-block;
-	}
-	@media (min-width: 1200px) {
-		display: block;
-	}
-}
-
-@media screen and (min-width: 720px) {
-	.contact-details i {
-		background: transparent;
-	}
-}
-
-.contact-details .row {
-	display: grid;
-	grid-template-columns: min-content min-content;
-	justify-content: center;
-	align-items: start;
-	gap: 0;
-
-	.conatct-font {
-		display: flex;
-		position: relative;
-		top: 4px;
-	}
-
-	div:not(.conatct-font) {
-		display: flex;
-		gap: 0.5rem;
-		align-items: center;
-		@media (min-width: 768px) {
-			flex-direction: column;
-			width: 100%;
-			align-items: baseline;
-			gap: 0;
-		}
-	}
-}
-
-.contact-details {
-	padding: 0 !important;
-}
-
-.contact-details p.bold-font {
-	color: white;
-	font-weight: 600;
-}
-
-.contact-details p:not(.bold-font) a:hover {
-	color: #ffdd78;
-}
-
-.contact-details .conatct-font {
-	background: none;
-	@media (min-width: 1200px) {
-		background: url('https://fourpaws.org/wp-content/themes/charity-fundraiser/images/like.png')
-			no-repeat center center;
-	}
-	i {
-		color: white;
-		font-size: 1.25rem;
-		padding: 0;
-		@media (min-width: 1200px) {
-			color: #ffa000;
-			padding: 1rem;
-			font-size: 1rem;
-		}
-	}
-}
-
-.social-media i {
-	font-size: 1.25rem;
-}
-
-.social-media {
-	display: grid;
-	grid-template-columns: repeat(4, min-content);
-	justify-content: center;
-	gap: 0.5rem;
-	@media (min-width: 768px) {
-		gap: 0.25rem;
-	}
-}
-
-.donate-link {
-	margin-block: 0;
-	width: 100%;
-	padding-block: 1rem;
-	transition: 0s;
-	transition: background-color 0.5s;
-	position: relative;
-	background-color: #eaeffa;
-	border-color: #3b5991;
-	@media (min-width: 1001px) {
-		width: auto;
-		padding-inline: 4rem;
-	}
-}
-
 .donate-link:hover {
 	background-color: #3b5991;
 	border-color: white;
@@ -747,71 +474,7 @@ a.sf-with-ul::after {
 	}
 }
 
-.donate-link:active {
-	top: 3px;
-}
-
-.donate-link a {
-	display: block;
-	font-size: 1.25rem;
-	text-transform: uppercase;
-	text-shadow: none;
-}
-
-.donate-link a,
-.donate-link:focus a,
-.donate-link:active a {
-	outline: none;
-	color: #3b5991;
-}
-
-.donate-link:has(a:focus-visible) {
-	outline: 3px dotted #fff;
-	outline-offset: 5px;
-	@media (min-width: 1001px) {
-		outline: 3px dotted #3b5991;
-	}
-}
-
-.donate-link i {
-	margin-right: 0.25rem;
-	color: #eb0000;
-}
-
-.donate-link:hover a {
-	color: white;
-	text-shadow: none;
-}
-
-.donate-link:hover i {
-	color: white;
-}
-
-#header .container {
-	padding-bottom: 1rem;
-	@media (min-width: 768px) {
-		padding-bottom: 3rem;
-	}
-	@media (min-width: 1001px) {
-		padding-bottom: 5rem;
-	}
-}
-
-@media (min-width: 720px) {
-	.contact-details i {
-		padding: 8px 10px;
-		background: transparent;
-	}
-}
-
 /* Header code above */
-
-/* Carousel code below */
-#slider .carousel-control-prev-icon,
-#slider .carousel-control-next-icon {
-	background-color: #3b5991;
-}
-/* Carousel code above */
 
 /* Breadcrumb Code Below */
 .bradcrumbs a {
@@ -830,28 +493,6 @@ a.sf-with-ul::after {
 /* Main content styles below */
 
 /* Back to Top code below */
-.back-to-top {
-	background-color: #ffca28;
-}
-
-.back-to-top:hover {
-	color: black !important;
-}
-
-.back-to-top::before {
-	border-bottom-color: #ffca28;
-}
-/* Back to Top code above */
-
-/* Footer code below */
-
-.footerinner .widget-title {
-	color: white !important;
-}
-
-#footer h3 {
-	border-bottom-color: #ffca28;
-}
 
 .footerinner ul li a {
 	color: #fff !important;
@@ -863,41 +504,3 @@ a.sf-with-ul::after {
 	color: #ffdd78 !important;
 	text-shadow: 0 0 2px #361c04f2;
 }
-
-input[type='search'] {
-	color: #213862 !important;
-	font-weight: 500;
-}
-
-input[type='search']:focus {
-	outline: 1px solid white;
-}
-
-#footer input.search-field {
-	background-color: white;
-	transition: none;
-}
-
-/* Search button */
-#footer input[type='submit'] {
-	background-color: #213862;
-	color: white;
-	font-weight: 600;
-	transition: background-color 0.5s ease;
-}
-
-/* Search button on hover */
-#footer input[type='submit']:hover {
-	background-color: #081733;
-	color: #fff;
-}
-
-#footer input:focus {
-	outline: 2px solid white;
-	outline-offset: 5px;
-}
-
-#footer .search-form {
-	gap: 0.5rem;
-}
-/* Footer code above */
