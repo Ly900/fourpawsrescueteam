@@ -523,6 +523,11 @@ input[type='search']:focus {
 	font-size: 20px;
 	line-height: 1.5;
 }
+
+.elementor-element a {
+	font-size: 20px;
+	line-height: 1.5;
+}
 /**************************/
 /* Elementor styles below */
 /**************************/
