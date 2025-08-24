@@ -522,11 +522,13 @@ input[type='search']:focus {
 .elementor-element p {
 	font-size: 20px;
 	line-height: 1.5;
+	font-weight: 500;
 }
 
 .elementor-element a {
 	font-size: 20px;
 	line-height: 1.5;
+	font-weight: 500;
 }
 /**************************/
 /* Elementor styles below */
