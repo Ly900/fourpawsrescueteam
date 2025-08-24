@@ -27,7 +27,6 @@ body {
 .menu-adoption-menu-container a {
 	text-decoration: none;
 }
-
 /* Global styles above */
 
 /* Header code below */
@@ -383,7 +382,6 @@ a.sf-with-ul::after {
 		background: transparent;
 	}
 }
-
 /* Header code above */
 
 /* Carousel code below */
@@ -394,7 +392,6 @@ a.sf-with-ul::after {
 /* Carousel code above */
 
 /* Back to Top code below */
-
 .back-to-top {
 	background-color: #ffca28;
 }
@@ -409,7 +406,6 @@ a.sf-with-ul::after {
 /* Back to Top code above */
 
 /* Footer code below */
-
 .footerinner .widget-title {
 	color: white !important;
 }
@@ -418,13 +414,8 @@ a.sf-with-ul::after {
 	border-bottom-color: #ffca28;
 }
 
-.footerinner ul li a {
-	font-weight: 500;
-	transition: color 0.5s ease;
-}
-
 .footerinner ul li a:hover {
-	color: #ffdd78;
+	color: #ffdd78 !important;
 	text-shadow: 0 0 2px #361c04f2;
 }
 
@@ -464,6 +455,12 @@ input[type='search']:focus {
 #footer .search-form {
 	gap: 0.5rem;
 }
+
+.footerinner ul li a {
+	color: #fff !important;
+	font-weight: 500;
+	transition: color 0.5s ease;
+}
 /* Footer code above */
 
 .donate-link:hover {
@@ -493,14 +490,3 @@ input[type='search']:focus {
 /* Main content styles below */
 
 /* Back to Top code below */
-
-.footerinner ul li a {
-	color: #fff !important;
-	font-weight: 500;
-	transition: color 0.5s ease;
-}
-
-.footerinner ul li a:hover {
-	color: #ffdd78 !important;
-	text-shadow: 0 0 2px #361c04f2;
-}
