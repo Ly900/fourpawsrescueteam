@@ -530,6 +530,10 @@ input[type='search']:focus {
 	line-height: 1.5;
 	font-weight: 500;
 }
+
+.elementor-element a:hover {
+	text-decoration: underline;
+}
 /**************************/
 /* Elementor styles below */
 /**************************/
