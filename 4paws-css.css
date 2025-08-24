@@ -513,5 +513,15 @@ input[type='search']:focus {
 	text-decoration: none !important;
 }
 /**************************/
-/* Main content styles below */
+/* Main content styles above */
+/**************************/
+
+/**************************/
+/* Elementor styles below */
+/**************************/
+.elementor-element p {
+	font-size: 20px;
+}
+/**************************/
+/* Elementor styles below */
 /**************************/
