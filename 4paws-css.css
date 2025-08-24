@@ -1,4 +1,6 @@
+/**************************/
 /* Global styles below */
+/**************************/
 body {
 	-webkit-font-smoothing: antialiased;
 }
@@ -27,9 +29,13 @@ body {
 .menu-adoption-menu-container a {
 	text-decoration: none;
 }
+/**************************/
 /* Global styles above */
+/**************************/
 
+/**************************/
 /* Header code below */
+/**************************/
 div#sidelong-menu {
 	background-color: #3b5991;
 }
@@ -382,16 +388,24 @@ a.sf-with-ul::after {
 		background: transparent;
 	}
 }
+/**************************/
 /* Header code above */
+/**************************/
 
+/**************************/
 /* Carousel code below */
+/**************************/
 #slider .carousel-control-prev-icon,
 #slider .carousel-control-next-icon {
 	background-color: #3b5991;
 }
+/**************************/
 /* Carousel code above */
+/**************************/
 
+/**************************/
 /* Back to Top code below */
+/**************************/
 .back-to-top {
 	background-color: #ffca28;
 }
@@ -403,9 +417,13 @@ a.sf-with-ul::after {
 .back-to-top::before {
 	border-bottom-color: #ffca28;
 }
+/**************************/
 /* Back to Top code above */
+/**************************/
 
+/**************************/
 /* Footer code below */
+/**************************/
 .footerinner .widget-title {
 	color: white !important;
 }
@@ -470,16 +488,23 @@ input[type='search']:focus {
 		border-color: #3b5991;
 	}
 }
+/**************************/
+/* Footer code above */
+/**************************/
 
-/* Header code above */
-
+/**************************/
 /* Breadcrumb Code Below */
+/**************************/
 .bradcrumbs a {
 	color: #fff !important;
 }
+/**************************/
 /* Breadcrumb Code Above */
+/**************************/
 
+/**************************/
 /* Main content styles below */
+/**************************/
 .main-wrap-box .wp-block-button a {
 	color: #fff !important;
 }
@@ -487,6 +512,6 @@ input[type='search']:focus {
 .main-wrap-box .wp-block-button a:hover {
 	text-decoration: none !important;
 }
+/**************************/
 /* Main content styles below */
-
-/* Back to Top code below */
+/**************************/
