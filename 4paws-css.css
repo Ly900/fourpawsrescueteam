@@ -43,6 +43,7 @@ div#sidelong-menu {
 div#sidelong-menu a {
 	color: #fff !important;
 	text-decoration: none;
+	font-size: 1rem;
 	@media (min-width: 1001px) {
 		color: #3b5991 !important;
 	}
@@ -278,6 +279,7 @@ a.sf-with-ul::after {
 
 .contact-details p:not(.bold-font) a:hover {
 	color: #ffdd78 !important;
+	font-size: 1rem;
 }
 
 .contact-details .conatct-font {
@@ -439,9 +441,15 @@ a.sf-with-ul::after {
 	border-bottom-color: #ffca28;
 }
 
+.footerinner ul li a {
+	font-size: 1rem;
+	text-decoration: none;
+}
+
 .footerinner ul li a:hover {
 	color: #ffdd78 !important;
 	text-shadow: 0 0 2px #361c04f2;
+	font-size: 1rem;
 }
 
 input[type='search'] {
