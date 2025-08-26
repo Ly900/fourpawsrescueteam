@@ -549,14 +549,19 @@ input[type='search']:focus {
 	transition: background-color 0.3s ease;
 }
 
-.elementor-element.inverse a {
-	color: #ceddff !important;
-}
-
 .elementor-element a:hover {
 	text-decoration: underline !important;
 	color: #0e44aa !important;
 }
+
+.elementor-element.inverse a {
+	color: #ceddff !important;
+}
+
+.elementor-element.inverse a:hover {
+	color: #ffffff !important;
+}
+
 /**************************/
 /* Elementor styles below */
 /**************************/
