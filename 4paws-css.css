@@ -22,7 +22,7 @@ body {
 }
 
 .main-wrap-box a:hover {
-	color: #213862 !important;
+	color: #1050c6 !important;
 }
 
 /* Remove underlines from links inside the Adoption Menu that appears in the templates with a left or right sidebar */
@@ -356,7 +356,7 @@ a.sf-with-ul::after {
 .donate-link:focus a,
 .donate-link:active a {
 	outline: none;
-	color: #3b5991;
+	color: #3b5991 !important;
 }
 
 .donate-link:has(a:focus-visible) {
@@ -545,10 +545,13 @@ input[type='search']:focus {
 	line-height: 1.5;
 	font-weight: 500;
 	text-decoration: underline;
+	text-shadow: none;
+	transition: background-color 0.3s ease;
 }
 
 .elementor-element a:hover {
-	text-decoration: underline;
+	text-decoration: underline !important;
+	color: #0e44aa !important;
 }
 /**************************/
 /* Elementor styles below */
