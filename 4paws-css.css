@@ -417,6 +417,9 @@ a.sf-with-ul::after {
 /**************************/
 .back-to-top {
 	background-color: #ffca28;
+	font-size: 10px !important;
+	line-height: 15px !important;
+	text-decoration: none !important;
 }
 
 .back-to-top:hover {
