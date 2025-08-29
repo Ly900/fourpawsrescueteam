@@ -555,6 +555,7 @@ input[type='search']:focus {
 .elementor-element a:hover {
 	text-decoration: underline !important;
 	color: #0e44aa !important;
+	line-height: 1.5 !important;
 }
 
 .elementor-element.inverse a {
