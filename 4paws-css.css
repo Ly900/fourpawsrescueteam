@@ -558,7 +558,8 @@ input[type='search']:focus {
 	color: #ceddff !important;
 }
 
-.elementor-element.inverse a:hover {
+/* Headings*/
+.elementor-element.inverse .elementor-heading-title {
 	color: #ffffff !important;
 }
 
