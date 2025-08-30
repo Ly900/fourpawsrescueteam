@@ -430,6 +430,10 @@ a.sf-with-ul::after {
 	}
 }
 
+.donate-link a:focus-visible {
+	outline: none !important;
+}
+
 .donate-link i {
 	margin-right: 0.25rem;
 	color: #eb0000;
