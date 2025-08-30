@@ -5,6 +5,28 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+a:focus {
+	color: #0e44aa !important;
+	outline: none !important;
+}
+
+a:focus-visible {
+	color: #0e44aa !important;
+	text-decoration: underline !important;
+	outline: 2px dotted #3b5991 !important;
+	outline-offset: 2px !important;
+}
+
+header a:focus {
+	underline: none !important;
+	text-decoration: none !important;
+}
+
+.top-header a:focus-visible {
+	outline: 2px dotted #fff !important;
+	outline-offset: 3px !important;
+}
+
 /* 
  Override theme default (no underline) for content inside the main area.  
  Add underline to anchor links for improved acessibility.
@@ -38,18 +60,6 @@ body {
 /**************************/
 div#sidelong-menu {
 	background-color: #3b5991;
-}
-
-a:focus {
-	outline: none !important;
-}
-
-a:focus-visible,
-a:focus {
-	color: #0e44aa !important;
-	text-decoration: underline !important;
-	outline: 2px dotted #3b5991;
-	outline-offset: 2px;
 }
 
 div#sidelong-menu a {
