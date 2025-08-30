@@ -6,7 +6,7 @@ body {
 }
 
 /* 
- Override theme default (no underline) fo content inside the main area.  
+ Override theme default (no underline) for content inside the main area.  
  Add underline to anchor links for improved acessibility.
 */
 .main-wrap-box a,
@@ -38,6 +38,18 @@ body {
 /**************************/
 div#sidelong-menu {
 	background-color: #3b5991;
+}
+
+a:focus {
+	outline: none;
+}
+
+a:focus-visible,
+a:focus {
+	color: #0e44aa !important;
+	text-decoration: underline !important;
+	outline: 2px dotted #3b5991;
+	outline-offset: 2px;
 }
 
 div#sidelong-menu a {
@@ -575,6 +587,19 @@ input[type='search']:focus {
 
 .elementor-element.inverse a {
 	color: #ceddff !important;
+}
+
+.elementor-element.inverse a:hover,
+.elementor-element.inverse a:focus,
+.elementor-element.inverse a:focus-visible {
+	color: #fff !important;
+}
+
+.elementor-element.inverse a:focus-visible,
+.elementor-element.inverse a:focus {
+	text-decoration: underline !important;
+	outline: 2px dotted #fff;
+	outline-offset: 2px;
 }
 
 /* Headings*/
