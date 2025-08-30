@@ -140,7 +140,6 @@ a.sf-with-ul::after {
 /* Tier 2 menu links on hover */
 .nav-menu ul.sub-menu a:hover {
 	transition-duration: 0.2s;
-	/* border-left: 4px solid #FFCA28; */
 	@media (min-width: 1001px) {
 		color: white;
 	}
@@ -258,6 +257,22 @@ a.sf-with-ul::after {
 			align-items: baseline;
 			gap: 0;
 		}
+	}
+}
+
+.conatct-font i {
+	@media (min-width: 1200px) {
+		position: relative;
+		padding: 1.25rem !important;
+	}
+}
+
+.conatct-font i:before {
+	@media (min-width: 1200px) {
+		position: absolute;
+		top: 25%;
+		left: 31%;
+		color: #3b5991;
 	}
 }
 
