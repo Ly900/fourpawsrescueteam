@@ -393,6 +393,10 @@ a.sf-with-ul::after {
 	text-decoration: none;
 }
 
+.donate-link a {
+	text-decoration: none !important;
+}
+
 .donate-link a,
 .donate-link:focus a {
 	outline: none;
@@ -400,6 +404,10 @@ a.sf-with-ul::after {
 }
 
 .donate-link:active a {
+	color: #3b5991 !important;
+}
+
+.donate-link:hover a {
 	color: #fff !important;
 	text-decoration: none !important;
 }
