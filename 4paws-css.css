@@ -61,8 +61,22 @@ div#sidelong-menu a {
 	}
 }
 
+div#sidelong-menu a:focus-visible {
+	outline: 2px dotted #6399fe !important;
+	outline-offset: 2px !important;
+	transition: none;
+}
+
 div#sidelong-menu .sub-menu a {
 	color: #fff !important;
+	transition: none;
+}
+
+div#sidelong-menu .sub-menu a:focus-visible {
+	outline: 2px dotted #6399fe !important;
+	outline-offset: 2px !important;
+	position: relative;
+	z-index: 1;
 }
 
 .toggle-menu {
