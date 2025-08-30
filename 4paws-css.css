@@ -394,10 +394,14 @@ a.sf-with-ul::after {
 }
 
 .donate-link a,
-.donate-link:focus a,
-.donate-link:active a {
+.donate-link:focus a {
 	outline: none;
 	color: #3b5991 !important;
+}
+
+.donate-link:active a {
+	color: #fff !important;
+	text-decoration: none !important;
 }
 
 .donate-link:has(a:focus-visible) {
