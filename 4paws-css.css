@@ -41,7 +41,7 @@ div#sidelong-menu {
 }
 
 a:focus {
-	outline: none;
+	outline: none !important;
 }
 
 a:focus-visible,
