@@ -648,6 +648,11 @@ input[type='search']:focus {
 	text-decoration: none !important;
 }
 
+.elementor-element.donate-btn a:hover {
+	color: #fff !important;
+	text-decoration: none !important;
+}
+
 /* Headings*/
 .elementor-element.inverse .elementor-heading-title {
 	color: #ffffff !important;
