@@ -642,11 +642,17 @@ input[type='search']:focus {
 	outline-offset: 2px;
 }
 
+/* Donate Now Btn Styles */
+.elementor-element.donate-btn a {
+	color: #3b5991 !important;
+	text-decoration: none !important;
+}
+
 /* Headings*/
 .elementor-element.inverse .elementor-heading-title {
 	color: #ffffff !important;
 }
 
 /**************************/
-/* Elementor styles below */
+/* Elementor styles above */
 /**************************/
