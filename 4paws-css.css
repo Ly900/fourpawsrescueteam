@@ -648,7 +648,8 @@ input[type='search']:focus {
 	text-decoration: none !important;
 }
 
-.elementor-element.donate-btn a:hover {
+.elementor-element.donate-btn a:hover,
+.elementor-element.donate-btn a:focus-visible {
 	color: #fff !important;
 	text-decoration: none !important;
 }
