@@ -693,10 +693,14 @@ input[type='search']:focus {
 		color: #3b5991 !important;
 		line-height: 1.5rem !important;
 	}
+}
+
+.elementor-element .paws-btn_secondary {
 	a:hover,
 	a:active,
 	a:focus-visible,
 	a:focus {
+		background-color: #3b5991 !important;
 		color: #ffffff !important;
 	}
 }
