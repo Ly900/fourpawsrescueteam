@@ -686,6 +686,21 @@ input[type='search']:focus {
 .elementor-element ul li {
 	margin-bottom: 0.5rem;
 }
+
+.elementor-element .paws-btn {
+	a {
+		text-decoration: none !important;
+		color: #3b5991 !important;
+		line-height: 1.5rem !important;
+	}
+	a:hover,
+	a:active,
+	a:focus-visible,
+	a:focus {
+		color: #ffffff !important;
+	}
+}
+
 /**************************/
 /* Elementor styles above */
 /**************************/
