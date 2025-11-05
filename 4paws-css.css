@@ -588,6 +588,11 @@ input[type='search']:focus {
 	font-weight: 500;
 	transition: color 0.5s ease;
 }
+
+/* Hide Charity theme link */
+.copyright-wrapper .inner a {
+	display: none !important;
+}
 /* Footer code above */
 
 .donate-link:hover {
