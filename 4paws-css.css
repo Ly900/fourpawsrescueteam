@@ -584,9 +584,17 @@ input[type='search']:focus {
 }
 
 .footerinner ul li a {
-	color: #fff !important;
+	color: #ceddff !important;
 	font-weight: 500;
 	transition: color 0.5s ease;
+	text-decoration: underline;
+	&:focus-visible {
+		outline: 2px dotted #fff !important;
+		outline-offset: 2px !important;
+	}
+	&:hover {
+		text-decoration: underline !important;
+	}
 }
 
 /* Hide Charity theme link */
