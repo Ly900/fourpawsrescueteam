@@ -672,6 +672,11 @@ input[type='search']:focus {
 	color: #fff !important;
 }
 
+.elementor-element.inverse a:focus-visible {
+	outline: 2px dotted #fff !important;
+	outline-offset: 2px !important;
+}
+
 .elementor-element.inverse a:focus-visible,
 .elementor-element.inverse a:focus {
 	text-decoration: underline !important;
