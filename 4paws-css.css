@@ -702,7 +702,7 @@ input[type='search']:focus {
 }
 
 .elementor-element ul li {
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.25rem !important;
 }
 
 .elementor-element .paws-btn {
