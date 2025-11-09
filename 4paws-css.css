@@ -650,15 +650,15 @@ input[type='search']:focus {
 /* Elementor styles below */
 /**************************/
 
-/* Allows overriding of dark blue headings to be the accent color orange. */
-.elementor-element.paws-color-brand-accent-primary .elementor-heading-title {
-	color: #f79824 !important;
-}
-
 .elementor-element p {
 	font-size: 1.25rem;
 	line-height: 1.5;
 	font-weight: 500;
+}
+
+// Allows overring 1.25rem paragraphs to take on body-text-lg size.
+.elementor-element.paws-body-text-lg :is(p, a) {
+	font-size: 1.5rem !important;
 }
 
 .elementor-element a {
@@ -710,13 +710,18 @@ input[type='search']:focus {
 	text-decoration: none !important;
 }
 
+.elementor-element ul li {
+	margin-bottom: 0.25rem !important;
+}
+
 /* Headings*/
 .elementor-element.inverse .elementor-heading-title {
 	color: #ffffff !important;
 }
 
-.elementor-element ul li {
-	margin-bottom: 0.25rem !important;
+/* Allows overriding of dark blue headings to be the accent color orange. */
+.elementor-element.paws-color-brand-accent-primary .elementor-heading-title {
+	color: #f79824 !important;
 }
 
 .elementor-element .paws-btn {
