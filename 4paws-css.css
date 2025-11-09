@@ -649,8 +649,19 @@ input[type='search']:focus {
 /**************************/
 /* Elementor styles below */
 /**************************/
+
+/* Allows overriding of dark blue headings to be the accent color orange. */
+.elementor-element.paws-color-brand-accent-primary .elementor-heading-title {
+	color: #f79824 !important;
+}
+
+/* Allows text shadow on a bright orange accent color */
+.elementor-element .paws-text-shadow-default .elementor-heading-title {
+	text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.6) !important;
+}
+
 .elementor-element p {
-	font-size: 20px;
+	font-size: 1.25rem;
 	line-height: 1.5;
 	font-weight: 500;
 }
