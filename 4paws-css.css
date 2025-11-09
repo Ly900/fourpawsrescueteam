@@ -721,7 +721,8 @@ input[type='search']:focus {
 	}
 }
 
-.elementor-element .paws-btn_secondary {
+.elementor-element .paws-btn_secondary,
+.elementor-element .paws-btn_tertiary {
 	a:hover,
 	a:active,
 	a:focus-visible,
