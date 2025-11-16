@@ -724,11 +724,25 @@ input[type='search']:focus {
 	color: #f79824 !important;
 }
 
+/* Buttons */
 .elementor-element .paws-btn {
 	a {
 		text-decoration: none !important;
 		color: #3b5991 !important;
 		line-height: 1.5rem !important;
+	}
+}
+
+.elementor-element .paws-btn_primary {
+	a {
+		color: #ffffff !important;
+	}
+	a:hover,
+	a:active,
+	a:focus-visible,
+	a:focus {
+		background-color: #ffffff !important;
+		color: #3b5991 !important;
 	}
 }
 
@@ -740,6 +754,12 @@ input[type='search']:focus {
 	a:focus {
 		background-color: #3b5991 !important;
 		color: #ffffff !important;
+	}
+}
+
+.elementor-element .paws-btn_has-solid-heart {
+	i:before {
+		color: #eb0000;
 	}
 }
 
