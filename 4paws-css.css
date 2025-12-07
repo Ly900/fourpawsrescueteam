@@ -656,9 +656,14 @@ input[type='search']:focus {
 	font-weight: 500;
 }
 
-// Allows overring 1.25rem paragraphs to take on body-text-lg size.
+/* Allows overriding 1.25rem paragraphs to take on body-text-lg size. */
 .elementor-element.paws-body-text-lg :is(p, a) {
 	font-size: 1.5rem !important;
+}
+
+/* Allows overriding 1.25rem paragraphs to take on body-text-sm size. */
+.elementor-element.paws-body-text-sm :is(p, a) {
+	font-size: 1rem !important;
 }
 
 .elementor-element a {
