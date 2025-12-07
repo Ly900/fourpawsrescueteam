@@ -764,10 +764,23 @@ input[type='search']:focus {
 	}
 }
 
-table.paws-table {
+.elementor-element table.paws-table {
+	border: 1px solid #c2cee5;
 	th {
 		background-color: #3b5991;
-		color: white;
+		color: #ffffff;
+		border: none !important;
+		padding: 0.75rem 1rem;
+	}
+	tbody tr:nth-child(odd) {
+		background-color: #eaeffa;
+	}
+	td {
+		border: none !important;
+		padding: 0.5rem 1rem;
+	}
+	a {
+		font-size: 1rem !important;
 	}
 }
 
