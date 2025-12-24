@@ -64,9 +64,8 @@
 
 	.gform_wrapper.gravity-theme .chosen-container-single .chosen-drop {
 		top: 110%;
-		padding-top: 0.25rem;
+		padding-top: 0;
 		border: 2px solid #c2cee5;
-		display: block;
 		border-radius: 20px;
 	}
 
@@ -91,5 +90,16 @@
 		li.highlighted {
 		background-color: #eaeffa;
 		background-image: none;
+	}
+
+	.gform_wrapper.gravity-theme
+		.chosen-container-single
+		.chosen-search
+		input[type='text'] {
+		padding: 0.5rem;
+	}
+
+	.gform_wrapper.gravity-theme .chosen-container-single .chosen-search {
+		padding: 0.5rem !important;
 	}
 }
