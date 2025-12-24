@@ -62,4 +62,9 @@
 		background-size: 200%;
 		background-position-x: 12px;
 	}
+
+	.gfield_description {
+		color: #213862;
+		font-size: 1rem;
+	}
 }
