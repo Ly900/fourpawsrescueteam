@@ -2,4 +2,12 @@
 	.gfield_label {
 		color: #3b5991;
 	}
+	input {
+		border-radius: 20px;
+		border: 2px solid #c2cee5;
+		height: 50px;
+	}
+	.gform-field-label--type-sub {
+		color: #213862;
+	}
 }
