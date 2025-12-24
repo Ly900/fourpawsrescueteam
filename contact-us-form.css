@@ -61,4 +61,35 @@
 		color: #213862;
 		font-size: 1rem;
 	}
+
+	.gform_wrapper.gravity-theme .chosen-container-single .chosen-drop {
+		top: 110%;
+		padding-top: 0.25rem;
+		border: 2px solid #c2cee5;
+		display: block;
+		border-radius: 20px;
+	}
+
+	.gform_wrapper.gravity-theme
+		.chosen-container-single
+		.chosen-search
+		input[type='text'] {
+		border: 1px solid #c2cee5;
+		border-radius: 20px;
+		padding-left: 10px;
+	}
+
+	.gform_wrapper.gravity-theme .chosen-container .chosen-results li {
+		color: #2e4879;
+		font-weight: 500;
+		transition: all 1s ease;
+	}
+
+	.gform_wrapper.gravity-theme
+		.chosen-container
+		.chosen-results
+		li.highlighted {
+		background-color: #eaeffa;
+		background-image: none;
+	}
 }
