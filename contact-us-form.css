@@ -23,4 +23,8 @@
 	.gform_wrapper.gravity-theme .gfield input.medium {
 		width: 100%;
 	}
+
+	.gform_wrapper.gravity-theme .gform_fields {
+		grid-row-gap: 1rem;
+	}
 }
