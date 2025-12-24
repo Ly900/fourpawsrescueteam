@@ -1,4 +1,7 @@
 .paws-contact-us-form {
+	h2.gform_title {
+		display: none;
+	}
 	.gfield_label {
 		color: #3b5991;
 	}
