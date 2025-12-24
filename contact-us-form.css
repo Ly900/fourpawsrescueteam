@@ -2,12 +2,25 @@
 	.gfield_label {
 		color: #3b5991;
 	}
+
 	input {
 		border-radius: 20px;
 		border: 2px solid #c2cee5;
 		height: 50px;
 	}
-	.gform-field-label--type-sub {
+
+	/* Need to override selector for font-size inside inputs */
+	.gform_wrapper.gravity-theme input[type='text'] {
+		font-size: 1rem;
+	}
+
+	/* Label helper text below input */
+	.gform_wrapper.gravity-theme .ginput_complex label {
+		font-size: 1rem;
 		color: #213862;
+	}
+
+	.gform_wrapper.gravity-theme .gfield input.medium {
+		width: 100%;
 	}
 }
