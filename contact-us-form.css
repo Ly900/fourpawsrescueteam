@@ -29,4 +29,37 @@
 	.gform_wrapper.gravity-theme .gform_fields {
 		grid-row-gap: 1rem;
 	}
+
+	.gform_wrapper.gravity-theme .chosen-container a.chosen-single {
+		border-radius: 20px;
+		height: 50px;
+		display: flex;
+		align-items: center;
+		background: none;
+	}
+
+	.gform_wrapper.gravity-theme
+		select.medium.gfield_select
+		+ div.chosen-container-single[style] {
+		width: 100% !important;
+		a {
+			color: #2e4879 !important;
+			font-size: 1rem;
+			border: 2px solid #c2cee5;
+			box-shadow: none;
+		}
+		a:hover {
+			text-decoration: none !important;
+		}
+	}
+
+	.gform_wrapper.gravity-theme .chosen-container-single .chosen-single div {
+		width: 40px;
+	}
+
+	/* Dropdown Caret */
+	.gform_wrapper.gravity-theme .chosen-container-single .chosen-single div b {
+		background-size: 200%;
+		background-position-x: 12px;
+	}
 }
