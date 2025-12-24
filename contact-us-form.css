@@ -102,4 +102,33 @@
 	.gform_wrapper.gravity-theme .chosen-container-single .chosen-search {
 		padding: 0.5rem !important;
 	}
+
+	.gform_wrapper.gravity-theme .gfield textarea {
+		border: 2px solid #c2cee5;
+		border-radius: 20px;
+		color: #2e4879;
+		font-weight: 500;
+	}
+
+	#gform_submit_button_4 {
+		border-radius: 50px;
+		border: 2px solid #3b5991;
+		background: #eaeffa;
+		display: flex;
+		padding-inline: 64px;
+	}
+
+	#gform_submit_button_4:hover,
+	#gform_submit_button_4:active,
+	#gform_submit_button_4:focus,
+	#gform_submit_button_4:focus-visible {
+		background-color: #3b5991 !important;
+		color: #ffffff !important;
+	}
+
+	#gform_submit_button_4:focus-visible {
+		text-decoration: none;
+		outline: 2px dotted #3b5991 !important;
+		outline-offset: 2px !important;
+	}
 }
