@@ -158,3 +158,36 @@
 		text-decoration: underline;
 	}
 }
+
+.send-message-heading h3 {
+	font-size: 2rem !important;
+	@media (min-width: 1001px) {
+		font-size: 2.5rem !important;
+		line-height: 1 !important;
+		margin-bottom: 1.25rem;
+	}
+	@media (min-width: 1200px) {
+		font-size: 3rem !important;
+		margin-bottom: 1.5rem;
+	}
+}
+
+.contact-section > div {
+	flex-direction: column-reverse;
+	@media (min-width: 1025px) {
+		flex-direction: unset;
+	}
+}
+
+.contact-section > div:first-child > div:nth-child(2) {
+	margin-bottom: 2.5rem;
+	@media (min-width: 1025px) {
+		margin-bottom: 0;
+	}
+}
+
+.contact-section > div div:nth-child(1) {
+		/* background: pink; */
+		/* margin-bottom: 0.5rem; */
+	}
+}
