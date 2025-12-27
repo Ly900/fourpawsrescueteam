@@ -132,3 +132,29 @@
 		outline-offset: 2px !important;
 	}
 }
+
+.paws-contact-info {
+	.elementor-icon-list-item:nth-child(2) a,
+	.elementor-icon-list-item:nth-child(3) a {
+		text-decoration: none;
+	}
+	 {
+		text-decoration: none;
+	}
+
+	.elementor-icon-list-item:nth-child(2) a:hover,
+	.elementor-icon-list-item:nth-child(3) a:hover {
+		line-height: 1.5rem !important;
+		text-decoration: none !important;
+		span:last-child {
+			color: #0e44aa !important;
+			transition: all 0.5s;
+		}
+	}
+
+	.elementor-icon-list-item:nth-child(2) span:last-child,
+	.elementor-icon-list-item:nth-child(3) span:last-child {
+		color: #266ced;
+		text-decoration: underline;
+	}
+}
