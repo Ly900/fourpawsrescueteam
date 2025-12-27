@@ -170,6 +170,200 @@
 		font-size: 3rem !important;
 		margin-bottom: 1.5rem;
 	}
+	a.paws-contact-us-form {
+		h2.gform_title {
+			display: none;
+		}
+
+		.gfield_label {
+			color: #3b5991;
+		}
+
+		input {
+			border-radius: 20px;
+			border: 2px solid #c2cee5;
+			height: 50px;
+			color: #2e4879;
+			font-weight: 500;
+		}
+
+		/* Need to override selector for font-size inside inputs */
+		.gform_wrapper.gravity-theme input[type='text'] {
+			font-size: 1rem;
+		}
+
+		/* Label helper text below input */
+		.gform_wrapper.gravity-theme .ginput_complex label {
+			font-size: 1rem;
+			color: #213862;
+		}
+
+		.gform_wrapper.gravity-theme .gfield input.medium {
+			width: 100%;
+		}
+
+		.gform_wrapper.gravity-theme .gform_fields {
+			grid-row-gap: 1rem;
+		}
+
+		.gform_wrapper.gravity-theme .chosen-container a.chosen-single {
+			border-radius: 20px;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			background: none;
+		}
+
+		.gform_wrapper.gravity-theme
+			select.medium.gfield_select
+			+ div.chosen-container-single[style] {
+			width: 100% !important;
+			a {
+				color: #2e4879 !important;
+				font-size: 1rem;
+				border: 2px solid #c2cee5;
+				box-shadow: none;
+			}
+			a:hover {
+				text-decoration: none !important;
+			}
+		}
+
+		.gfield_description {
+			color: #213862;
+			font-size: 1rem;
+		}
+
+		.gform_wrapper.gravity-theme .chosen-container-single .chosen-drop {
+			top: 110%;
+			padding-top: 0;
+			border: 2px solid #c2cee5;
+			border-radius: 20px;
+		}
+
+		.gform_wrapper.gravity-theme
+			.chosen-container-single
+			.chosen-search
+			input[type='text'] {
+			border: 1px solid #c2cee5;
+			border-radius: 20px;
+			padding-left: 10px;
+		}
+
+		.gform_wrapper.gravity-theme .chosen-container .chosen-results li {
+			color: #2e4879;
+			font-weight: 500;
+			transition: all 1s ease;
+		}
+
+		.gform_wrapper.gravity-theme
+			.chosen-container
+			.chosen-results
+			li.highlighted {
+			background-color: #eaeffa;
+			background-image: none;
+		}
+
+		.gform_wrapper.gravity-theme
+			.chosen-container-single
+			.chosen-search
+			input[type='text'] {
+			padding: 0.5rem;
+		}
+
+		.gform_wrapper.gravity-theme .chosen-container-single .chosen-search {
+			padding: 0.5rem !important;
+		}
+
+		.gform_wrapper.gravity-theme .gfield textarea {
+			border: 2px solid #c2cee5;
+			border-radius: 20px;
+			color: #2e4879;
+			font-weight: 500;
+		}
+
+		#gform_submit_button_4 {
+			border-radius: 50px;
+			border: 2px solid #3b5991;
+			background: #eaeffa;
+			display: flex;
+			padding-inline: 64px;
+		}
+
+		#gform_submit_button_4:hover,
+		#gform_submit_button_4:active,
+		#gform_submit_button_4:focus,
+		#gform_submit_button_4:focus-visible {
+			background-color: #3b5991 !important;
+			color: #ffffff !important;
+		}
+
+		#gform_submit_button_4:focus-visible {
+			text-decoration: none;
+			outline: 2px dotted #3b5991 !important;
+			outline-offset: 2px !important;
+		}
+	}
+
+	.paws-contact-info {
+		.elementor-icon-list-item:nth-child(2) a,
+		.elementor-icon-list-item:nth-child(3) a {
+			text-decoration: none;
+		}
+		 {
+			text-decoration: none;
+		}
+
+		.elementor-icon-list-item:nth-child(2) a:hover,
+		.elementor-icon-list-item:nth-child(3) a:hover {
+			line-height: 1.5rem !important;
+			text-decoration: none !important;
+			span:last-child {
+				color: #0e44aa !important;
+				transition: all 0.5s;
+			}
+		}
+
+		.elementor-icon-list-item:nth-child(2) span:last-child,
+		.elementor-icon-list-item:nth-child(3) span:last-child {
+			color: #266ced;
+			text-decoration: underline;
+		}
+	}
+
+	.send-message-heading h3 {
+		font-size: 2rem !important;
+		@media (min-width: 1001px) {
+			font-size: 2.5rem !important;
+			line-height: 1 !important;
+			margin-bottom: 1.25rem;
+		}
+		@media (min-width: 1200px) {
+			font-size: 3rem !important;
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	.contact-section > div {
+		flex-direction: column-reverse;
+		@media (min-width: 1025px) {
+			flex-direction: unset;
+		}
+	}
+
+	.contact-section > div:first-child > div:nth-child(2) {
+		margin-bottom: 2.5rem;
+		@media (min-width: 1025px) {
+			margin-bottom: 0;
+		}
+	}
+
+	.elementor-social-icon {
+		transition: all 0.25s !important;
+		&:hover {
+			transform: scale(1);
+		}
+	}
 }
 
 .contact-section > div {
@@ -186,8 +380,10 @@
 	}
 }
 
-.contact-section > div div:nth-child(1) {
-		/* background: pink; */
-		/* margin-bottom: 0.5rem; */
+.elementor-social-icon {
+	transition: all 0.25s !important;
+	font-size: 1.5rem !important;
+	&:hover {
+		transform: scale(1.2);
 	}
 }
