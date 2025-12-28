@@ -1,0 +1,32 @@
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// Count the number of rows with data-date attributes before running.
+		let rowsWithDate = document.querySelectorAll('tr[data-date]');
+		console.log('Rows with data-date before:', rowsWithDate.length);
+
+		// Get today's date at midnight
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		// Find all table rows with a data-date attribute
+		document.querySelectorAll('tr[data-date]').forEach((row) => {
+			let dateStr = row.getAttribute('data-date').trim();
+
+			// Parse the date
+			let parts = dateStr.split('-');
+			if (parts.length === 3) {
+				let rowDate = new Date(parts[0], parts[1] - 1, parts[2]); // year, monthIndex, day
+
+				// Compare just the date part
+				if (rowDate.getTime() < today.getTime()) {
+					console.log('Row removed: ', rowDate);
+					row.remove();
+
+					// Count the number of rows left to test.
+					rowsWithDate = document.querySelectorAll('tr[data-date]');
+					console.log('Rows with data-date after:', rowsWithDate.length);
+				}
+			}
+		});
+	});
+</script>
