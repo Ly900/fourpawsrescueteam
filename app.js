@@ -1,11 +1,10 @@
-import {
-	loadAllCats,
-	getSeniorCats,
-	createSeniorCats,
-} from './senior-cats/test-files/senior-cats.js';
-
 async function main() {
-	console.log('app.js');
+	// console.clear();
+	// const data = await loadAllCats();
+	// const seniorCats = getSeniorCats(data);
+	// const customSeniorCats = createSeniorCats(seniorCats);
+	// console.log(customSeniorCats);
+	// console.log(customSeniorCats.length);
 }
 
 main();
