@@ -1,12 +1,12 @@
 import {
-	loadsAllCats,
+	loadAllCats,
 	getSeniorCats,
 	createSeniorCats,
 } from './senior-cats/senior-cats.js';
 
 async function main() {
 	console.clear();
-	const data = await loadsAllCats();
+	const data = await loadAllCats();
 	const seniorCats = getSeniorCats(data);
 	const customSeniorCats = createSeniorCats(seniorCats);
 	console.log(customSeniorCats);

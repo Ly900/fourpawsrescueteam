@@ -21,7 +21,7 @@ export function getSeniorCats(data) {
 	return seniorCats;
 }
 
-export async function loadsAllCats() {
+export async function loadAllCats() {
 	try {
 		const file = await fs.readFile('./senior-cats/all-cats.json', 'utf8');
 		const json = JSON.parse(file);
