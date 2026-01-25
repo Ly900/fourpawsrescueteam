@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"test:create-senior-cats": "npx nodemon senior-cats/test-files/senior-cats.js",
-		"test:get-three-random": "npx nodemon senior-cats/scripts/get-three-random.js",
+		"test:get-three-random": "npx nodemon senior-cats/test-files/get-three-random.js",
 		"get-updated-seniors": "node senior-cats/scripts/senior-cats-node.js",
 		"dev": "npx http-server senior-cats"
 	},

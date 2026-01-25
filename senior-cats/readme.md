@@ -22,7 +22,15 @@ It does not save any files but only console logs the results.
 
 ### Test Getting 3 Random Senior Cats
 
-From root of project, run `npm run test:get-three-random`. This will run the `get-three-random.js` file, which uses the real prod data in `data/senior-cats-[DATE].json` in order to pull 3 random cats from the JSON. With the `get-three-random.js` file open, save (without without making changes) to see 3 new cats in the console.
+From root of project, run `npm run test:get-three-random`. This will run the `scripts/get-three-random.js` file, which uses the real prod data in `data/senior-cats-[DATE].json` in order to pull 3 random cats from the JSON. With the `scripts/get-three-random.js` file open, save (without without making changes) to see 3 new cats in the console.
+
+There is a chunk in the bottom of the main function in that file. You can uncomment the first part and just console.log the three cats. To see the JSON get render into the browwer, use the instructions below.
+
+### Test 3 Random Seniors in HTML
+
+From root of project, run `npm run dev`. That will start the http-server in order to see the functionality in the browser. It will serve the `index.html` file at the root of the senior-cats directory, which already calls the CSS and JS files needed for it to work in the browser.
+
+## Implementation Time
 
 ## Step 1: ShelterLuv API Fetch
 
@@ -40,13 +48,8 @@ This will run a package.json script located at `scripts/senior-cats-node.js` tha
   - The file will get saved in data/senior-cats-[DATE].json
   - This senior-cats-[date].json file will be needed in the next step.
 
-## Step 2: Test JSON With UI
+## Step 2: Update HTML Blocks in Wordpress
 
-From the root of this project, run `npm run dev`.
-
-This will:
-
-- Open senior-cats/index.html file.
-- Start http-server (no live reloading so refresh browser for updates).
-
-You can now modify and update the senior-cats/index.html file, UI, and styles, and test the senior-cats[date].json.
+1. Go to the Four Paws homepage.
+2. In the first HTML block, inside the script tags, replace the array that is there with the newly generated array of senior cats that was just generated.
+3. You do not have to change the other HTML blocks.
