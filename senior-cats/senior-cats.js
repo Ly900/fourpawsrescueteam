@@ -23,7 +23,7 @@ export function getSeniorCats(data) {
 
 export async function loadsAllCats() {
 	try {
-		const file = await fs.readFile('./all-cats.json', 'utf8');
+		const file = await fs.readFile('./senior-cats/all-cats.json', 'utf8');
 		const json = JSON.parse(file);
 
 		return json;

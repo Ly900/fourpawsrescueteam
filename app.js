@@ -2,7 +2,7 @@ import {
 	loadsAllCats,
 	getSeniorCats,
 	createSeniorCats,
-} from './senior-cats.js';
+} from './senior-cats/senior-cats.js';
 
 async function main() {
 	console.clear();
