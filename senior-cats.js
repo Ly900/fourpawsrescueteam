@@ -6,7 +6,7 @@ export function createSeniorCats(seniorCats) {
 
 	return seniorCats.map((cat) => ({
 		nid: cat.nid,
-		name: cat.name,
+		name: cat.name.replace(/\(.*?\)/g, '').trim(),
 		age: cat.age_group?.age_from ?? null,
 		photo: cat.photos?.[0]?.url ?? null,
 		url: `${BASE_URL}${cat.nid}`,
