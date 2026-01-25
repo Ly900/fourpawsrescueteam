@@ -1,9 +1,16 @@
-import { loadsAllCats, getSeniorCats } from './senior-cats.js';
+import {
+	loadsAllCats,
+	getSeniorCats,
+	createSeniorCats,
+} from './senior-cats.js';
 
 async function main() {
+	console.clear();
 	const data = await loadsAllCats();
 	const seniorCats = getSeniorCats(data);
-	console.log(seniorCats);
+	const customSeniorCats = createSeniorCats(seniorCats);
+	console.log(customSeniorCats);
+	console.log(customSeniorCats.length);
 }
 
 main();
