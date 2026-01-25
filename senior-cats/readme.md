@@ -16,11 +16,13 @@ This partially manual process avoids constantly calling the API from the homepag
 
 From root of project, run `npm run test:create-senior-cats`.
 
-This will start nodemon server to watch the `senior-cats-test.js` file. This script tests functionality using the test-files/all-cats.json local file and does not make any fetch calls to ShelterLuv.
+This will start nodemon server to watch the `test-files/senior-cats.js` file. This script tests functionality using the `test-files/all-cats.json` local file and does not make any fetch calls to ShelterLuv.
 
 It does not save any files but only console logs the results.
 
 ### Test Getting 3 Random Senior Cats
+
+From root of project, run `npm run test:get-three-random`. This will run the `get-three-random.js` file, which uses the real prod data in `data/senior-cats-[DATE].json` in order to pull 3 random cats from the JSON. With the `get-three-random.js` file open, save (without without making changes) to see 3 new cats in the console.
 
 ## Step 1: ShelterLuv API Fetch
 
