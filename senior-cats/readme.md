@@ -24,4 +24,13 @@ This will run a package.json script that will:
   - The file will have a date appended to the end to know which is the most updated file.
   - This senior-cats-[date].json file will be needed in the next step.
 
-## Step 2:
+## Step 2: Test JSON With UI
+
+From the root of this project, run `npm run dev`.
+
+This will:
+
+- Open senior-cats/index.html file.
+- Start http-server (no live reloading).
+
+You can now modify and update the senior-cats/index.html file, UI, and styles, and test the senior-cats[date].json.

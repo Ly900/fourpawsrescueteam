@@ -42,7 +42,7 @@ async function main() {
 
 	const dateStamp = getDateStamp();
 
-	const filename = `senior-cats/senior-cats-${dateStamp}.json`;
+	const filename = `senior-cats/data/senior-cats-${dateStamp}.json`;
 
 	fs.writeFileSync(filename, JSON.stringify(customSeniorCats, null, 2));
 

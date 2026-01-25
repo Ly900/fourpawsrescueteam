@@ -6,11 +6,12 @@
 	"type": "module",
 	"scripts": {
 		"get-updated-seniors": "node senior-cats/senior-cats-final-node.js",
-		"dev": "nodemon app.js"
+		"dev": "npx http-server senior-cats"
 	},
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"browser-sync": "^3.0.4",
 		"nodemon": "^3.1.11"
 	},
 	"dependencies": {
