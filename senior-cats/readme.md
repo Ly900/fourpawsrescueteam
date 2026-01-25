@@ -33,6 +33,6 @@ From the root of this project, run `npm run dev`.
 This will:
 
 - Open senior-cats/index.html file.
-- Start http-server (no live reloading).
+- Start http-server (no live reloading so refresh browser for updates).
 
 You can now modify and update the senior-cats/index.html file, UI, and styles, and test the senior-cats[date].json.
