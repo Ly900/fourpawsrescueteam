@@ -5,7 +5,8 @@
 	"main": "app.js",
 	"type": "module",
 	"scripts": {
-		"test-script": "npx nodemon senior-cats/test/senior-cats.js",
+		"test:create-senior-cats": "npx nodemon senior-cats/test/senior-cats.js",
+		"test:get-three-random": "npx nodemon senior-cats/test/senior-cats.js",
 		"get-updated-seniors": "node senior-cats/scripts/senior-cats-node.js",
 		"dev": "npx http-server senior-cats"
 	},

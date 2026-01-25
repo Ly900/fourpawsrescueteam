@@ -10,6 +10,18 @@ Use this readme for instructions on how to...
 
 This partially manual process avoids constantly calling the API from the homepage and having to do any backend in Wordpress or on the ShelterLuv side.
 
+## Testing Functionality
+
+### Test Creating New Senior Objects From Local File
+
+From root of project, run `npm run test:create-senior-cats`.
+
+This will start nodemon server to watch the `senior-cats-test.js` file. This script tests functionality using the test-files/all-cats.json local file and does not make any fetch calls to ShelterLuv.
+
+It does not save any files but only console logs the results.
+
+### Test Getting 3 Random Senior Cats
+
 ## Step 1: ShelterLuv API Fetch
 
 Since only 3 senior cats are highlighted on the homepage at a time, and senior cats don't get adopted that quickly, it's not urgent that the information is immediately up to date. Follow the steps below once a week to get the updated data from ShelterLuv.
