@@ -2,15 +2,10 @@ import {
 	loadAllCats,
 	getSeniorCats,
 	createSeniorCats,
-} from './senior-cats/senior-cats.js';
+} from './senior-cats/test-files/senior-cats.js';
 
 async function main() {
-	console.clear();
-	const data = await loadAllCats();
-	const seniorCats = getSeniorCats(data);
-	const customSeniorCats = createSeniorCats(seniorCats);
-	console.log(customSeniorCats);
-	console.log(customSeniorCats.length);
+	console.log('app.js');
 }
 
 main();
