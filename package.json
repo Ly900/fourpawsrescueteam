@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"test-script": "npx nodemon senior-cats/test/senior-cats.js",
-		"get-updated-seniors": "node senior-cats/senior-cats-final-node.js",
+		"get-updated-seniors": "node senior-cats/scripts/senior-cats-node.js",
 		"dev": "npx http-server senior-cats"
 	},
 	"author": "",
