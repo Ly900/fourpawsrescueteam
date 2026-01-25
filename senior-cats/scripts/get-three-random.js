@@ -5,7 +5,7 @@ function getRandomSeniorCats(cats, count = 3) {
 	return shuffled.slice(0, count);
 }
 
-async function main() {
+async function getThreeRandom() {
 	console.clear();
 	const fileUrl = new URL(
 		'../data/senior-cats-2026-01-25.json',
@@ -18,6 +18,10 @@ async function main() {
 	const featuredCats = getRandomSeniorCats(data);
 
 	console.log(featuredCats);
+}
+
+async function main() {
+	await getThreeRandom();
 }
 
 main();
