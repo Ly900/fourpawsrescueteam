@@ -359,10 +359,6 @@ a.sf-with-ul::after {
 	}
 }
 
-.social-media i {
-	font-size: 1.25rem;
-}
-
 .social-media {
 	display: grid;
 	grid-template-columns: repeat(4, min-content);
@@ -380,6 +376,10 @@ a.sf-with-ul::after {
 	}
 }
 
+.social-media i {
+	font-size: 1.25rem;
+}
+
 .social-media::after {
 	content: 'CFC #34517';
 	position: absolute;
@@ -395,6 +395,10 @@ a.sf-with-ul::after {
 		transform: translateY(-50%);
 		left: auto;
 	}
+}
+
+.fa-twitter:before {
+	content: '\e61b';
 }
 
 .donate-link {
