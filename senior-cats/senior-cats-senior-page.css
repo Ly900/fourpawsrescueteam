@@ -1,32 +1,45 @@
 #app {
+	/* Container */
 	.md\:flex.flex-wrap.items-start.flex {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
-		gap: 2rem;
+		gap: 1rem;
 		align-items: stretch;
 		padding-block: 2rem;
 		@media (min-width: 1000px) {
 			grid-template-columns: repeat(auto-fit, minmax(min(225px, 100%), 1fr));
+			gap: 1.5rem;
 		}
 	}
 
+	/* Individual card container */
 	.px-2.my-4.w-1\/2.md\:w-56 {
 		margin: 0;
 		padding: 1rem;
 		width: 100%;
-		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-		box-shadow:
-			rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-			rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-		box-shadow:
-			rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
-			rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 		box-shadow:
 			rgba(17, 17, 26, 0.05) 0px 1px 0px,
 			rgba(17, 17, 26, 0.1) 0px 0px 8px;
 
+		/* The image */
 		.placeholder-photo[data-v-6333eea1] {
 			border: none;
+		}
+
+		/* The clickable anchor */
+		a[data-v-6333eea1] {
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			height: 100%;
+		}
+
+		/* The name */
+		div[data-v-6333eea1] {
+			padding-top: 0.5rem;
+			letter-spacing: 1px;
+			color: #213862;
+			font-family: 'Montserrat', sans-serif;
 		}
 	}
 }
