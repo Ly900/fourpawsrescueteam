@@ -249,7 +249,7 @@ a.sf-with-ul::after {
 	display: inline-block;
 }
 
-.logo p.site-title a {
+.charity-fundraiser-logo p.site-title a {
 	text-shadow: 0 0 2px #361c04f2;
 	color: #fff !important;
 	text-decoration: none;
@@ -259,7 +259,7 @@ a.sf-with-ul::after {
 	}
 }
 
-.logo p.site-title a:hover {
+.charity-fundraiser-logo p.site-title a:hover {
 	color: #ffd54f !important;
 }
 
