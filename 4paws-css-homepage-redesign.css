@@ -802,9 +802,6 @@ input[type='search']:focus {
 /* Redesigned homepage styles below*/
 /***********************************/
 
-/***********************************/
-/* Redesigned homepage styles above*/
-/***********************************/
 .toggle-menu {
 	display: flex !important;
 	justify-content: space-between;
@@ -848,7 +845,7 @@ input[type='search']:focus {
 .toggle-menu button {
 	font-size: 0;
 	padding: 12px 16px;
-	@media (min-width: 780px) {
+	@media (min-width: 1001px) {
 		display: none;
 	}
 }
@@ -883,3 +880,11 @@ input[type='search']:focus {
 body.show-main-menu .side-nav {
 	top: 69px;
 }
+
+div#sidelong-menu {
+	border-top: 1px solid #627aa7;
+}
+
+/***********************************/
+/* Redesigned homepage styles above*/
+/***********************************/
