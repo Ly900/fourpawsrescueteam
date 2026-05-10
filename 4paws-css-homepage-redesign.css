@@ -805,8 +805,8 @@ input[type='search']:focus {
 /***********************************/
 /* Redesigned homepage styles above*/
 /***********************************/
-.toggle-menu responsive-menu p-2 {
-	display: flex;
+.toggle-menu {
+	display: flex !important;
 	justify-content: space-between;
 	padding: 0 !important;
 }
@@ -823,7 +823,7 @@ input[type='search']:focus {
 
 .charity-fundraiser-logo p.site-title {
 	font-size: 12px;
-	max-width: 55%;
+	max-width: 7rem;
 	line-height: 16px;
 }
 
@@ -842,6 +842,9 @@ input[type='search']:focus {
 .toggle-menu i {
 	padding: 0 !important;
 	font-size: 24px;
+	/* @media (min-width: 1001px) {
+		display: none;
+	} */
 }
 
 .top-bar {
@@ -852,4 +855,8 @@ input[type='search']:focus {
 	width: 100%;
 	height: auto;
 	max-width: 40px;
+}
+
+body.show-main-menu .side-nav {
+	top: 720px;
 }
