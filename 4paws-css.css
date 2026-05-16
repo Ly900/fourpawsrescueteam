@@ -252,7 +252,7 @@ a.sf-with-ul::after {
 .charity-fundraiser-logo {
 	display: flex;
 	flex-direction: row;
-	gap: 0.25rem;
+	gap: 0.5rem;
 	margin: 0 auto;
 	justify-content: center;
 	padding-bottom: .25rem !important;
