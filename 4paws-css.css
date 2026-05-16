@@ -222,6 +222,9 @@ a.sf-with-ul::after {
 		align-items: center;
 		justify-content: space-between;
 	}
+	@media (min-width: 1200px) {
+		column-gap: 0.5rem;
+	}
 }
 
 .top-header .container .row > div {
@@ -300,7 +303,7 @@ a.sf-with-ul::after {
 	.conatct-font {
 		display: flex;
 		position: relative;
-		top: 4px;
+		top: 5px;
 	}
 
 	div:not(.conatct-font) {
@@ -312,6 +315,9 @@ a.sf-with-ul::after {
 			width: 100%;
 			align-items: baseline;
 			gap: 0;
+		}
+		@media (min-width: 1001px) {
+			padding-inline: 0 !important;
 		}
 	}
 }
