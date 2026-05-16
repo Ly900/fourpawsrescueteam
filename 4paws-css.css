@@ -249,6 +249,15 @@ a.sf-with-ul::after {
 	display: inline-block;
 }
 
+.charity-fundraiser-logo {
+	display: flex;
+	flex-direction: row;
+	gap: 0.25rem;
+	margin: 0 auto;
+	justify-content: center;
+	padding-bottom: .25rem !important;
+}
+
 .charity-fundraiser-logo p.site-title a {
 	text-shadow: 0 0 2px #361c04f2;
 	color: #fff !important;
@@ -261,6 +270,11 @@ a.sf-with-ul::after {
 
 .charity-fundraiser-logo p.site-title a:hover {
 	color: #ffd54f !important;
+}
+
+.custom-logo {
+	width: 24px;
+	height: 24px;
 }
 
 .custom-logo-link {
