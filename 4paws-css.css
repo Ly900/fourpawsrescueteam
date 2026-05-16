@@ -273,8 +273,8 @@ a.sf-with-ul::after {
 }
 
 .custom-logo {
-	width: 24px;
-	height: 24px;
+	width: 24px !important;
+	height: 24px !important;
 }
 
 .custom-logo-link {
@@ -286,11 +286,12 @@ a.sf-with-ul::after {
 	}
 }
 
-@media screen and (min-width: 720px) {
-	.contact-details i {
-		background: transparent;
-	}
+
+.contact-details i {
+	padding: 0 !important;
+	background: transparent !important;
 }
+
 
 .contact-details .row {
 	display: grid;
@@ -508,12 +509,6 @@ a.sf-with-ul::after {
 	}
 }
 
-@media (min-width: 720px) {
-	.contact-details i {
-		padding: 8px 10px;
-		background: transparent;
-	}
-}
 /**************************/
 /* Header code above */
 /**************************/
