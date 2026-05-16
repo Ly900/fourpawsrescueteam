@@ -236,14 +236,6 @@ a.sf-with-ul::after {
 	}
 }
 
-.logo {
-	@media (min-width: 768px) {
-		width: 100%;
-		grid-area: logo;
-		text-align: center;
-	}
-}
-
 .site-logo {
 	margin-bottom: 0.25rem;
 	display: inline-block;
@@ -256,6 +248,11 @@ a.sf-with-ul::after {
 	margin: 0 auto;
 	justify-content: center;
 	padding-bottom: .25rem !important;
+		@media (min-width: 768px) {
+		width: 100%;
+		grid-area: logo;
+		text-align: center;
+	}
 }
 
 .charity-fundraiser-logo p.site-title a {
