@@ -633,13 +633,16 @@ input[type='search']:focus {
 	gap: 0.25rem;
 	margin-left: 0.5rem;
 	padding-top: 1rem;
-	p {
+	p,
+	a {
 		color: #fff;
 		margin-bottom: 0;
+		font-size: 1rem;
 	}
 }
 
 .mobile-nav-footer__item {
+	align-items: center;
 	display: flex;
 	gap: 0.25rem;
 }
