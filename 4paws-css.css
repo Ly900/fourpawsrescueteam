@@ -82,8 +82,8 @@ a:focus-visible {
 	@media (min-width: 768px) {
 		display: grid;
 		grid-template-areas:
-			'logo logo logo'
-			'email phone social';
+			'logo'
+			'social';
 		justify-content: center;
 		column-gap: 0.25rem;
 	}
@@ -158,7 +158,11 @@ a:focus-visible {
 
 /* Contact details */
 .contact-details {
+	display: none;
 	padding: 0 !important;
+	@media (min-width: 1001px) {
+		display: block;
+	}
 }
 
 .contact-details .row {
@@ -242,7 +246,7 @@ a:focus-visible {
 		position: absolute;
 		top: 25%;
 		left: 31%;
-		color: #3b5991;
+		color: #fff;
 	}
 }
 
@@ -261,7 +265,7 @@ a:focus-visible {
 		gap: 0.25rem;
 	}
 
-	@media (min-width: 1001px) {
+	@media (min-width: 992px) {
 		padding-bottom: 1rem !important;
 	}
 }
@@ -620,6 +624,24 @@ input[type='search']:focus {
 /* Hide Charity theme attribution link */
 .copyright-wrapper .inner a {
 	display: none !important;
+}
+
+/**	Mobile nav footer */
+.mobile-nav-footer {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-left: 0.5rem;
+	padding-top: 1rem;
+	p {
+		color: #fff;
+		margin-bottom: 0;
+	}
+}
+
+.mobile-nav-footer__item {
+	display: flex;
+	gap: 0.25rem;
 }
 
 /**************************/
