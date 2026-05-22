@@ -51,11 +51,7 @@ a:focus-visible {
 /* Header                 */
 /**************************/
 #header .container {
-	padding-bottom: 1rem;
-
-	@media (min-width: 768px) {
-		padding-bottom: 3rem;
-	}
+	padding-bottom: 0.5rem;
 
 	@media (min-width: 1001px) {
 		padding-bottom: 5rem;
@@ -299,6 +295,7 @@ a:focus-visible {
 
 /* Donate button */
 .donate-link {
+	display: none;
 	margin-block: 0;
 	width: 100%;
 	padding-block: 1rem;
@@ -308,6 +305,7 @@ a:focus-visible {
 	border-color: #3b5991;
 
 	@media (min-width: 1001px) {
+		display: block;
 		width: auto;
 		padding-inline: 4rem;
 	}
@@ -413,6 +411,12 @@ div#sidelong-menu .sub-menu a:focus-visible {
 .toggle-menu {
 	background-color: #3b5991;
 	border-bottom: 1px solid #627aa7;
+	display: flex;
+	align-items: center;
+
+	@media (min-width: 1001px) {
+		display: none;
+	}
 }
 
 .toggle-menu button {
@@ -645,6 +649,35 @@ input[type='search']:focus {
 	align-items: center;
 	display: flex;
 	gap: 0.25rem;
+}
+
+.mobile-nav-donate-button {
+	background-color: #eaeffa;
+	border-radius: 6px;
+	color: #3b5991 !important;
+	display: inline-block;
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	margin-left: auto;
+	padding: 0.25rem 1rem;
+	text-decoration: none !important;
+	letter-spacing: 0;
+	transition:
+		background-color 0.2s ease,
+		transform 0.2s ease;
+}
+
+.mobile-nav-donate-button:hover,
+.mobile-nav-donate-button:focus-visible {
+	background-color: #d4dff5;
+	color: #3b5991 !important;
+	text-decoration: none !important;
+}
+
+.mobile-nav-donate-button:focus-visible {
+	outline: 2px solid #fff !important;
+	outline-offset: 2px !important;
 }
 
 /**************************/
