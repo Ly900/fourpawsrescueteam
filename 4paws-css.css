@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito:ital,wght@0,200..900;1,200..900&display=swap');
+
 /**************************/
 /* Global styles          */
 /**************************/
@@ -65,7 +67,7 @@ a:focus-visible {
 	letter-spacing: 1px;
 
 	@media (min-width: 1001px) {
-		padding-block: 2rem;
+		padding-block: 1.5rem;
 	}
 }
 
@@ -115,21 +117,34 @@ a:focus-visible {
 	margin: 0 auto;
 	justify-content: center;
 	padding-bottom: 0.25rem !important;
+	align-items: center;
 	@media (min-width: 768px) {
 		width: 100%;
 		grid-area: logo;
 		text-align: center;
+	}
+	@media (min-width: 1001px) {
+		gap: 0.5rem !important;
 	}
 }
 
 .site-logo {
 	margin-bottom: 0.25rem;
 	display: inline-block;
+	@media (min-width: 1001px) {
+		margin-bottom: 0;
+	}
 }
 
 .custom-logo {
 	width: 24px !important;
 	height: 24px !important;
+	position: relative;
+	top: -2px;
+	@media (min-width: 1001px) {
+		width: 30px !important;
+		height: 30px !important;
+	}
 }
 
 .custom-logo-link {
@@ -144,11 +159,10 @@ a:focus-visible {
 	text-shadow: 0 0 2px #361c04f2;
 	color: #fff !important;
 	text-decoration: none;
-	font-size: 1.5rem;
-
-	@media (min-width: 1200px) {
-		font-size: 2rem;
-	}
+	font-family: 'Baloo 2', system-ui, sans-serif;
+	font-weight: 700;
+	font-size: clamp(1.75rem, 1.163rem + 2.451vw, 2.25rem);
+	line-height: 1.2 !important;
 }
 
 .charity-fundraiser-logo p.site-title a:hover {
@@ -168,6 +182,7 @@ a:focus-visible {
 .contact-details .row {
 	display: flex;
 	flex-direction: row;
+	gap: 0.25rem;
 }
 
 .contact-details .row .conatct-font {
@@ -194,6 +209,8 @@ a:focus-visible {
 	color: #fff !important;
 	text-decoration: none;
 	font-size: 1rem;
+	font-family: 'Nunito', system-ui, sans-serif;
+	font-weight: 600;
 }
 
 .contact-details p:not(.bold-font) a:hover {
@@ -293,7 +310,7 @@ a:focus-visible {
 	display: none;
 	margin-block: 0;
 	width: 100%;
-	padding-block: 1rem;
+	padding-block: 0.75rem !important;
 	transition: background-color 0.5s;
 	position: relative;
 	background-color: #eaeffa;
@@ -322,7 +339,6 @@ a:focus-visible {
 .donate-link a {
 	display: block;
 	font-size: 1.25rem;
-	text-transform: uppercase;
 	text-shadow: none;
 	text-decoration: none !important;
 	color: #3b5991 !important;
@@ -373,6 +389,7 @@ div#sidelong-menu a {
 	color: #fff !important;
 	text-decoration: none;
 	font-size: 1rem;
+	text-transform: none;
 
 	@media (min-width: 1001px) {
 		color: #3b5991 !important;
@@ -456,6 +473,7 @@ a.sf-with-ul::after {
 	font-weight: 700;
 	transition-duration: 0.2s;
 	color: #fff;
+	padding-block: 0.25rem !important;
 }
 
 /* Tier 1 links on hover — affects Close Menu button too */
@@ -637,6 +655,8 @@ input[type='search']:focus {
 		color: #fff;
 		margin-bottom: 0;
 		font-size: 1rem;
+		font-family: 'Nunito', system-ui, sans-serif;
+		font-weight: 600;
 	}
 }
 

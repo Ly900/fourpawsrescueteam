@@ -30,9 +30,17 @@
 		if (toggleMenu) toggleMenu.appendChild(donateButton);
 	}
 
+	function formatDesktopPhone() {
+		const link = document.querySelector('.contact-details a[href^="tel:"]');
+		if (link)
+			link.innerHTML =
+				'703-715-6369<span class="screen-reader-text">Phone number</span>';
+	}
+
 	function init() {
 		moveContactBlock();
 		moveDonateButton();
+		formatDesktopPhone();
 	}
 
 	if (document.readyState === 'loading') {
