@@ -757,6 +757,11 @@ input[type='search']:focus {
 	outline-offset: 2px !important;
 }
 
+/* Remove underlines from links inside the Elementor editor */
+.elementor-element .paws-no-underline a {
+	text-decoration: none !important;
+}
+
 /* Inverse headings */
 .elementor-element.inverse .elementor-heading-title {
 	color: #ffffff !important;
