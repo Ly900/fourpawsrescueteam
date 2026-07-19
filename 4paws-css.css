@@ -834,6 +834,11 @@ input[type='search']:focus {
 	color: #ffffff !important;
 }
 
+/* Remove underlines from links inside buttons */
+.elementor-element.paws-btn_primary a.elementor-button-link:hover {
+	text-decoration: none !important;
+}
+
 /* Solid heart icon button */
 .elementor-element .paws-btn_has-solid-heart i:before {
 	color: #eb0000;
