@@ -835,7 +835,8 @@ input[type='search']:focus {
 }
 
 /* Remove underlines from links inside buttons */
-.elementor-element.paws-btn_primary a.elementor-button-link:hover {
+.elementor-element.paws-btn_primary a.elementor-button-link:hover,
+.elementor-element.paws-btn_primary a.elementor-button-link:focus-visible {
 	text-decoration: none !important;
 }
 
