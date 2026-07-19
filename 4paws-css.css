@@ -762,6 +762,18 @@ input[type='search']:focus {
 	text-decoration: none !important;
 }
 
+/* Semibold text */
+.elementor-element .paws-semibold a,
+.elementor-element .paws-semibold p {
+	font-weight: 600 !important;
+}
+
+/* Bold text */
+.elementor-element .paws-bold a,
+.elementor-element .paws-bold p {
+	font-weight: 700 !important;
+}
+
 /* Inverse headings */
 .elementor-element.inverse .elementor-heading-title {
 	color: #ffffff !important;
