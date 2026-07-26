@@ -1,0 +1,163 @@
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		// =========================================================
+		// 4 PAWS ADOPTION EVENTS
+		// Update this list when new event dates are announced.
+		// Dates must use YYYY-MM-DD format.
+		// =========================================================
+
+		const events = [
+			{ date: '2026-07-25', location: 'fairfax' },
+			{ date: '2026-07-26', location: 'sterling' },
+			{ date: '2026-08-08', location: 'fairfax' },
+			{ date: '2026-08-16', location: 'sterling' },
+			{ date: '2026-09-12', location: 'fairfax' },
+			{ date: '2026-09-20', location: 'sterling' },
+			{ date: '2026-10-03', location: 'fairfax' },
+			{ date: '2026-10-11', location: 'sterling' },
+			{ date: '2026-11-07', location: 'fairfax' },
+			{ date: '2026-11-15', location: 'sterling' },
+			{ date: '2026-12-05', location: 'fairfax' },
+			{ date: '2026-12-13', location: 'sterling' },
+		];
+
+		// =========================================================
+		// LOCATION DETAILS
+		// These only need to change if a venue, address, URL,
+		// or event time changes.
+		// =========================================================
+
+		const locations = {
+			fairfax: {
+				name: 'Petco Fairfax',
+				url: 'https://stores.petco.com/va/fairfax/pet-supplies-fairfax-va-769.html',
+				addressLine1: '10708 Fairfax Blvd',
+				addressLine2:
+					'Fairfax&nbsp;<abbr title="Virginia">VA</abbr>,&nbsp;22030',
+				time: '1:00 PM – 5:00 PM',
+			},
+
+			sterling: {
+				name: 'Petco Sterling',
+				url: 'https://stores.petco.com/va/sterling/pet-supplies-sterling-va-1892.html',
+				addressLine1: '22000 Dulles Retail Plz',
+				addressLine2: 'Sterling&nbsp;<abbr title="Virginia">VA</abbr>, 20166',
+				time: '1:00 PM – 4:00 PM',
+			},
+		};
+
+		// =========================================================
+		// CARD ELEMENTS
+		// =========================================================
+
+		const cards = [
+			document.getElementById('event1-card'),
+			document.getElementById('event2-card'),
+		];
+
+		// Stop if neither card exists on the page.
+		if (!cards.some(Boolean)) {
+			return;
+		}
+
+		// =========================================================
+		// FIND THE NEXT TWO EVENTS
+		// =========================================================
+
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		const upcomingEvents = events
+			.map((event) => ({
+				...event,
+
+				// Noon prevents timezone conversion from changing the date.
+				dateObject: new Date(`${event.date}T12:00:00`),
+			}))
+			.filter((event) => event.dateObject >= today)
+			.sort((a, b) => a.dateObject - b.dateObject)
+			.slice(0, 2);
+
+		// =========================================================
+		// UPDATE ONE CARD
+		// =========================================================
+
+		function updateCard(card, event) {
+			if (!card || !event) {
+				if (card) {
+					card.hidden = true;
+				}
+
+				return;
+			}
+
+			const location = locations[event.location];
+
+			if (!location) {
+				console.error(`No location details found for "${event.location}".`);
+
+				card.hidden = true;
+				return;
+			}
+
+			const dateElement = card.querySelector(
+				'.event-date .elementor-heading-title',
+			);
+
+			const locationElement = card.querySelector(
+				'.event-location .elementor-widget-container',
+			);
+
+			const timeElement = card.querySelector(
+				'.event-time .elementor-widget-container',
+			);
+
+			if (!dateElement || !locationElement || !timeElement) {
+				console.error(
+					'An adoption-event card is missing an expected element.',
+					card,
+				);
+
+				card.hidden = true;
+				return;
+			}
+
+			dateElement.textContent = event.dateObject.toLocaleDateString('en-US', {
+				weekday: 'long',
+				month: 'long',
+				day: 'numeric',
+				year: 'numeric',
+			});
+
+			locationElement.innerHTML = `
+            <p>
+                <a
+                    href="${location.url}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ${location.name}
+                </a>
+            </p>
+            <div class="address-line">
+                ${location.addressLine1}
+            </div>
+            <div class="address-line">
+                ${location.addressLine2}
+            </div>
+        `;
+
+			timeElement.innerHTML = `<p>${location.time}</p>`;
+
+			card.hidden = false;
+		}
+
+		// =========================================================
+		// POPULATE THE TWO CARDS
+		// =========================================================
+
+		cards.forEach((card, index) => {
+			updateCard(card, upcomingEvents[index]);
+		});
+	});
+</script>
