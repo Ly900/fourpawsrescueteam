@@ -1,3 +1,9 @@
+<style>
+	.event-date-today .elementor-heading-title {
+		color: #d32f2f !important;
+		font-weight: 700;
+	}
+</style>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		// =========================================================
@@ -66,6 +72,9 @@
 
 		const today = new Date();
 		today.setHours(0, 0, 0, 0);
+		const todayString = `${today.getFullYear()}-${String(
+			today.getMonth() + 1,
+		).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
 		const upcomingEvents = events
 			.map((event) => ({
@@ -122,12 +131,25 @@
 				return;
 			}
 
-			dateElement.textContent = event.dateObject.toLocaleDateString('en-US', {
+			const formattedDate = event.dateObject.toLocaleDateString('en-US', {
 				weekday: 'long',
 				month: 'long',
 				day: 'numeric',
 				year: 'numeric',
 			});
+
+			const eventDate = card.querySelector('.event-date');
+
+			// Remove the Today class in case this card was previously marked.
+			eventDate.classList.remove('event-date-today');
+
+			// If the event is today, append " - Today!" and highlight it.
+			if (event.date === todayString) {
+				dateElement.textContent = `${formattedDate} - Today!`;
+				eventDate.classList.add('event-date-today');
+			} else {
+				dateElement.textContent = formattedDate;
+			}
 
 			locationElement.innerHTML = `
             <p>
