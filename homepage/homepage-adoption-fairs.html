@@ -47,6 +47,7 @@
 			fairfax: {
 				name: 'Petco Fairfax',
 				url: 'https://stores.petco.com/va/fairfax/pet-supplies-fairfax-va-769.html',
+				attendeesUrl: 'https://fourpaws.org/petco-fairfax-adoption-fair/',
 				addressLine1: '10708 Fairfax Blvd',
 				addressLine2:
 					'Fairfax&nbsp;<abbr title="Virginia">VA</abbr>,&nbsp;22030',
@@ -56,6 +57,7 @@
 			sterling: {
 				name: 'Petco Sterling',
 				url: 'https://stores.petco.com/va/sterling/pet-supplies-sterling-va-1892.html',
+				attendeesUrl: 'https://fourpaws.org/petco-sterling-adoption-fair/',
 				addressLine1: '22000 Dulles Retail Plz',
 				addressLine2: 'Sterling&nbsp;<abbr title="Virginia">VA</abbr>, 20166',
 				time: '1:00 PM – 4:00 PM',
@@ -131,6 +133,10 @@
 				'.event-time .elementor-widget-container',
 			);
 
+			const attendeesElement = card.querySelector(
+				'.event-attendees .elementor-widget-container',
+			);
+
 			if (!dateElement || !locationElement || !timeElement) {
 				console.error(
 					'An adoption-event card is missing an expected element.',
@@ -185,6 +191,20 @@
         `;
 
 			timeElement.innerHTML = `<p>${location.time}</p>`;
+
+			// Point the "Meet the attendees" link at this location's page.
+			// Only the href is swapped so the link text and the arrow icon
+			// beside it stay editable in Elementor. The link is
+			// supplementary, so a missing widget is not fatal.
+			if (attendeesElement) {
+				const attendeesLink = attendeesElement.querySelector('a');
+
+				if (attendeesLink) {
+					attendeesLink.href = location.attendeesUrl;
+				} else {
+					console.error('The attendees widget has no link.', card);
+				}
+			}
 
 			card.hidden = false;
 		}
