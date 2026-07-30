@@ -1,5 +1,10 @@
 <style>
 	.event-date-today .elementor-heading-title {
+		color: #009688 !important;
+		font-weight: 700;
+	}
+
+	.event-date-canceled .elementor-heading-title {
 		color: #d32f2f !important;
 		font-weight: 700;
 	}
@@ -10,6 +15,10 @@
 		// 4 PAWS ADOPTION EVENTS
 		// Update this list when new event dates are announced.
 		// Dates must use YYYY-MM-DD format.
+		//
+		// To mark an event as canceled, add the optional
+		// canceled property:
+		//     { date: '2026-07-26', location: 'sterling', canceled: true }
 		// =========================================================
 
 		const events = [
@@ -140,11 +149,16 @@
 
 			const eventDate = card.querySelector('.event-date');
 
-			// Remove the Today class in case this card was previously marked.
-			eventDate.classList.remove('event-date-today');
+			// Remove both state classes in case this card was
+			// previously marked.
+			eventDate.classList.remove('event-date-today', 'event-date-canceled');
 
-			// If the event is today, append " - Today!" and highlight it.
-			if (event.date === todayString) {
+			// A canceled event takes priority over the Today message.
+			if (event.canceled) {
+				dateElement.textContent = `${formattedDate} - Canceled`;
+				eventDate.classList.add('event-date-canceled');
+			} else if (event.date === todayString) {
+				// If the event is today, append " - Today!" and highlight it.
 				dateElement.textContent = `${formattedDate} - Today!`;
 				eventDate.classList.add('event-date-today');
 			} else {
