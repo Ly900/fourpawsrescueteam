@@ -9,7 +9,38 @@
 		color: #d32f2f !important;
 		font-weight: 700;
 	}
+
+	/* The link and arrow stay hidden until the script confirms the
+	   attendees list is live (the Monday of the event week). Hiding by
+	   default means the link never flashes before the script runs.
+	   The placeholder message is a direct p child too, so it starts
+	   hidden here as well. */
+	.event-attendees .elementor-widget-container > p,
+	.event-attendees-arrow {
+		display: none;
+	}
+
+	/* Reveal the real link and arrow, but never the placeholder. */
+	.attendees-ready
+		.event-attendees
+		.elementor-widget-container
+		> p:not(.event-attendees-pending),
+	.attendees-ready .event-attendees-arrow {
+		display: block;
+	}
+
+	/* Written out in full so this outweighs the hiding rule above;
+	   a shorter selector loses on specificity and the message
+	   never appears. */
+	.attendees-pending
+		.event-attendees
+		.elementor-widget-container
+		> p.event-attendees-pending {
+		display: block;
+		margin: 0;
+	}
 </style>
+
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		// =========================================================
@@ -87,6 +118,23 @@
 		const todayString = `${today.getFullYear()}-${String(
 			today.getMonth() + 1,
 		).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+		// Returns midnight on the Monday of the week leading up to the
+		// event. Events fall on a Saturday or Sunday, so this is the
+		// Monday 5–6 days earlier.
+		function getMondayBefore(eventDate) {
+			const monday = new Date(eventDate);
+			const dayOfWeek = monday.getDay(); // 0 = Sunday ... 6 = Saturday
+			const daysSinceMonday = (dayOfWeek + 6) % 7; // Mon = 0 ... Sun = 6
+
+			// If the event itself falls on a Monday, step back a full week.
+			monday.setDate(
+				monday.getDate() - (daysSinceMonday === 0 ? 7 : daysSinceMonday),
+			);
+			monday.setHours(0, 0, 0, 0);
+
+			return monday;
+		}
 
 		const upcomingEvents = events
 			.map((event) => ({
@@ -196,6 +244,10 @@
 			// Only the href is swapped so the link text and the arrow icon
 			// beside it stay editable in Elementor. The link is
 			// supplementary, so a missing widget is not fatal.
+			//
+			// The link is revealed from the Monday of the event week
+			// onward. Before then a placeholder message shows instead.
+			// A canceled event shows neither, since it has no attendees.
 			if (attendeesElement) {
 				const attendeesLink = attendeesElement.querySelector('a');
 
@@ -204,6 +256,24 @@
 				} else {
 					console.error('The attendees widget has no link.', card);
 				}
+
+				// Add the placeholder once, reusing it on later updates.
+				if (!attendeesElement.querySelector('.event-attendees-pending')) {
+					const pendingMessage = document.createElement('p');
+
+					pendingMessage.className = 'event-attendees-pending';
+					pendingMessage.textContent = 'Attendees list coming soon.';
+
+					attendeesElement.appendChild(pendingMessage);
+				}
+
+				const attendeesReady =
+					!event.canceled && today >= getMondayBefore(event.dateObject);
+
+				const attendeesPending = !event.canceled && !attendeesReady;
+
+				card.classList.toggle('attendees-ready', attendeesReady);
+				card.classList.toggle('attendees-pending', attendeesPending);
 			}
 
 			card.hidden = false;
