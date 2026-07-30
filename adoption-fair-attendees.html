@@ -27,24 +27,30 @@ adoption fair you want to update and comment out the other one. -->
 		color: inherit;
 		border: 4px solid #dbe0e6 !important;
 		transition:
-			transform 0.25s ease,
-			box-shadow 0.2s ease,
-			border-color 0.2s ease;
+			transform 0.5s ease,
+			box-shadow 0.2s ease;
 	}
 
-	.paws-cat-card:hover,
-	.paws-cat-card:focus-visible {
+	a.paws-cat-card:hover {
+		text-decoration: none !important;
 		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-		border-color: #a5b1c0;
+		border: 4px solid #a5b1c0 !important;
 		transform: translateY(-4px);
+	}
+
+	.paws-cat-card,
+	.paws-cat-card:hover,
+	.paws-cat-card:focus,
+	.paws-cat-card:visited {
+		text-decoration: none !important;
+		color: inherit;
 	}
 
 	.paws-cat-card img {
 		display: block;
 		width: 100%;
-		aspect-ratio: 4/3;
+		aspect-ratio: 4 / 3;
 		object-fit: cover;
-		background: #f4f7fb;
 	}
 
 	.paws-cat-content {
@@ -55,16 +61,18 @@ adoption fair you want to update and comment out the other one. -->
 	}
 
 	.paws-cat-name {
-		margin: 0 0 0.4rem;
+		margin: 0 0 6px;
 		font-size: 1rem;
 		font-weight: 700;
 		line-height: 1.2;
+		padding: 0;
 	}
 
-	.paws-cat-details {
+	p.paws-cat-details {
 		margin: 0;
+		margin-top: auto;
 		color: #223762;
-		font-size: 0.9rem;
+		font-size: 0.8rem !important;
 		line-height: 1.4;
 	}
 
@@ -79,13 +87,11 @@ adoption fair you want to update and comment out the other one. -->
 
 	.paws-no-cats p {
 		margin: 0 0 1rem;
-		color: #213862;
+		color: #213862 !important;
 	}
 
 	.paws-no-cats-link {
 		font-weight: 700;
-		color: inherit;
-		text-decoration: none;
 	}
 </style>
 
