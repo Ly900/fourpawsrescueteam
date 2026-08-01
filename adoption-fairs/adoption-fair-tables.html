@@ -1,0 +1,317 @@
+<!-- Builds the two tables on the Adoption Fairs and Events page: the schedule of
+upcoming adoption fairs, and the list of dates when aluminum cans can be dropped
+off at Petco Fairfax.
+
+Add these two empty divs to the page wherever each table should appear. This
+block fills them in. A page may have one, both, or neither; a div that is not
+there is simply skipped.
+
+    <div class="adoption-fair-table"></div>
+    <div class="aluminum-cans-table"></div>
+
+Past dates drop off on their own, so no one has to prune old rows by hand.
+
+REQUIRES window.FourPaws.data, which is loaded site-wide by the adoption fair
+data snippet in WordPress (kept in this repo as adoption-fairs-data.html). That
+snippet is not part of any page, so nothing needs to be added alongside this
+block. Event dates, store details, and fair hours are all edited in the snippet,
+not here.
+
+If that snippet is ever missing or broken, the tables are replaced by a short
+message asking the visitor to email info@fourpaws.org, and the reason is written
+to the browser console. There are no hand-coded backup tables on the page; a
+copy of the old ones is kept in this repo under deprecated/. -->
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		// The two divs this block fills in. A page may carry one, both,
+		// or neither.
+		const tableSelectors = ['.adoption-fair-table', '.aluminum-cans-table'];
+
+		// =========================================================
+		// WHEN SOMETHING IS BROKEN
+		// Shown only when the schedule cannot be read at all. An empty
+		// space would leave a visitor with nowhere to turn, so point
+		// them at someone who can answer.
+		//
+		// This is not the same as having no fairs booked. That case is
+		// normal, and each table says so in its own words further down.
+		// =========================================================
+
+		function showFailureMessage() {
+			tableSelectors.forEach((selector) => {
+				const container = document.querySelector(selector);
+
+				if (container) {
+					container.innerHTML =
+						'<p style="color: red;margin-bottom:2rem;">Our adoption fair schedule isn\'t loading right now. Please contact 4Paws at <a href="mailto:info@fourpaws.org">info@fourpaws.org</a> for our upcoming fair dates.</p>';
+				}
+			});
+		}
+
+		// =========================================================
+		// SHARED EVENT DATA
+		// Event dates and store details come from window.FourPaws.data,
+		// set by the site-wide adoption fair data snippet. That snippet
+		// runs in the page header, so the data is already in place by
+		// the time this handler fires. Nothing in this file needs
+		// editing when the schedule changes.
+		// =========================================================
+
+		const data = window.FourPaws && window.FourPaws.data;
+		const events = data && data.adoptionEvents;
+		const stores = data && data.stores;
+
+		if (!Array.isArray(events) || !stores) {
+			console.error(
+				'Adoption fair data is missing. Check that the adoption fair data snippet is active in WordPress.',
+			);
+
+			showFailureMessage();
+			return;
+		}
+
+		// =========================================================
+		// UPCOMING EVENTS
+		// Everything from today forward, earliest first. Canceled
+		// events stay on the list so anyone who was planning to
+		// attend still sees the notice.
+		// =========================================================
+
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		const upcomingEvents = events
+			.map((event) => ({
+				...event,
+
+				// Noon prevents timezone conversion from changing the date.
+				dateObject: new Date(`${event.date}T12:00:00`),
+			}))
+			.filter((event) => event.dateObject >= today)
+			.sort((a, b) => a.dateObject - b.dateObject);
+
+		// =========================================================
+		// TIME FORMATTING
+		// The shared data writes times the long way, '1:00 PM'. The
+		// tables want them short, so '1:00 PM' to '5:00 PM' reads
+		// "1-5 pm".
+		// =========================================================
+
+		// '1:00 PM' becomes { hour: 1, minute: 0, meridiem: 'pm' }.
+		// Anything that does not match returns null so the caller can
+		// fall back to the original text rather than print gibberish.
+		function parseTime(time) {
+			const match = String(time || '')
+				.trim()
+				.match(/^(\d{1,2})(?::(\d{2}))?\s*([AaPp])\.?[Mm]\.?$/);
+
+			if (!match) {
+				return null;
+			}
+
+			return {
+				hour: Number(match[1]),
+				minute: Number(match[2] || 0),
+				meridiem: match[3].toLowerCase() === 'a' ? 'am' : 'pm',
+			};
+		}
+
+		// On the hour prints as '1'; anything else keeps its minutes,
+		// as in '1:30'.
+		function formatClock(time) {
+			return time.minute === 0
+				? String(time.hour)
+				: `${time.hour}:${String(time.minute).padStart(2, '0')}`;
+		}
+
+		// Both times in the same half of the day share one meridiem,
+		// giving "1-5 pm". A fair running from morning to afternoon
+		// needs both, giving "11 am-3 pm".
+		function formatTimeRange(startTime, endTime) {
+			const start = parseTime(startTime);
+			const end = parseTime(endTime);
+
+			if (!start || !end) {
+				console.error(
+					`Could not read the fair times "${startTime}" and "${endTime}". Check that they are written like '1:00 PM' in the adoption fair data snippet.`,
+				);
+
+				return `${startTime} - ${endTime}`;
+			}
+
+			if (start.meridiem === end.meridiem) {
+				return `${formatClock(start)}-${formatClock(end)} ${end.meridiem}`;
+			}
+
+			return `${formatClock(start)} ${start.meridiem}-${formatClock(end)} ${
+				end.meridiem
+			}`;
+		}
+
+		// 'July 25'. The year is left off because the tables only ever
+		// show dates still to come.
+		function formatDate(event) {
+			return event.dateObject.toLocaleDateString('en-US', {
+				month: 'long',
+				day: 'numeric',
+			});
+		}
+
+		// Anything other than a status of canceled is treated as going
+		// ahead, so a blank or misspelled status never hides an event
+		// that is actually happening. Trimming and lowercasing means
+		// "Canceled " still registers, and the double-l spelling is
+		// accepted too.
+		function isCanceled(event) {
+			const status = String(event.status || '')
+				.trim()
+				.toLowerCase();
+
+			return status === 'canceled' || status === 'cancelled';
+		}
+
+		// =========================================================
+		// BUILDING A TABLE
+		// Both tables share this builder. They differ only in which
+		// events they list and how the first cell reads, so each
+		// passes its own filter and its own date-and-time text.
+		// =========================================================
+
+		// Phone numbers are stored for reading, '703-352-3300'. A tel:
+		// link wants digits only.
+		function toPhoneHref(phoneNumber) {
+			return `tel:${String(phoneNumber).replace(/\D/g, '')}`;
+		}
+
+		function renderTable(config) {
+			const container = document.querySelector(config.selector);
+
+			// Not every page carries both tables.
+			if (!container) {
+				return;
+			}
+
+			const rows = [];
+
+			upcomingEvents.filter(config.filter).forEach((event) => {
+				const store = stores[event.store];
+
+				// One bad store name costs a single row instead of the
+				// whole table.
+				if (!store) {
+					console.error(
+						`No store details found for "${event.store}" on ${event.date}. Check that the store name on this event matches a key in the stores object.`,
+					);
+
+					return;
+				}
+
+				rows.push(`
+					<tr data-date="${event.date}">
+						<td>${config.formatDateAndTime(event, store)}</td>
+						<td>
+							<a
+								href="${store.storeUrl}"
+								target="_blank"
+								rel="noreferrer noopener"
+								>${store.name}</a
+							>
+						</td>
+						<td>
+							<a href="${toPhoneHref(store.phoneNumber)}">${store.phoneNumber}</a>
+						</td>
+					</tr>
+				`);
+			});
+
+			// An empty table would read as though the page were broken.
+			if (!rows.length) {
+				container.innerHTML = `<p>${config.emptyMessage}</p>`;
+
+				return;
+			}
+
+			container.innerHTML = `
+				<figure>
+					<table class="paws-table">
+						<thead>
+							<tr>
+								<th>Date and Time</th>
+								<th>Store Location</th>
+								<th>Store Phone Number</th>
+							</tr>
+						</thead>
+						<tbody>${rows.join('')}</tbody>
+					</table>
+				</figure>
+			`;
+		}
+
+		// =========================================================
+		// BUILDING BOTH TABLES
+		// Anything unexpected in here leaves a half-built table on the
+		// page, which looks like a mistake nobody noticed. Catching it
+		// swaps in the contact message instead.
+		// =========================================================
+
+		try {
+			// -----------------------------------------------------
+			// THE ADOPTION FAIRS TABLE
+			// Every upcoming fair, at every store.
+			// -----------------------------------------------------
+
+			renderTable({
+				selector: '.adoption-fair-table',
+
+				filter: () => true,
+
+				formatDateAndTime(event, store) {
+					// An event may carry its own startTime or endTime when a
+					// store runs that one fair at unusual hours. Each falls
+					// back to the store's normal time independently, so a row
+					// can move just its start or just its end.
+					const timeRange = formatTimeRange(
+						event.startTime || store.startTime,
+						event.endTime || store.endTime,
+					);
+
+					const dateAndTime = `${formatDate(event)}, ${timeRange}`;
+
+					return isCanceled(event)
+						? `${dateAndTime} - <b>Canceled</b>`
+						: dateAndTime;
+				},
+
+				emptyMessage:
+					'No adoption fairs are scheduled right now. Please check back soon.',
+			});
+
+			// -----------------------------------------------------
+			// THE ALUMINUM CANS TABLE
+			// Cans are collected at Petco Fairfax only, and always up
+			// until 3 pm regardless of how long that day's fair runs.
+			// -----------------------------------------------------
+
+			renderTable({
+				selector: '.aluminum-cans-table',
+
+				filter: (event) => event.store === 'fairfax',
+
+				// Canceled fairs are listed here as ordinary rows. Cans can
+				// still be dropped off that day, so the "Canceled" note that
+				// the adoption fairs table shows would be misleading.
+				formatDateAndTime(event) {
+					return `${formatDate(event)}, before 3 pm`;
+				},
+
+				emptyMessage:
+					'No can collection dates are scheduled right now. Please check back soon.',
+			});
+		} catch (error) {
+			console.error('The adoption fair tables could not be built.', error);
+
+			showFailureMessage();
+		}
+	});
+</script>
