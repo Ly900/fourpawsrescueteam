@@ -12,7 +12,7 @@
 				phoneNumber: '703-352-3300',
 				storeUrl:
 					'https://stores.petco.com/va/fairfax/pet-supplies-fairfax-va-769.html',
-				attendeesPage: '/fairfax-petco-adoption-fair/',
+				attendeesPage: '/petco-fairfax-adoption-fair/',
 				savedQuery: 5752,
 				startTime: '1:00 PM',
 				endTime: '5:00 PM',
@@ -24,26 +24,43 @@
 				phoneNumber: '571-434-6562',
 				storeUrl:
 					'https://stores.petco.com/va/sterling/pet-supplies-sterling-va-1892.html',
-				attendeesPage: '/sterling-petco-adoption-fair/',
+				attendeesPage: '/petco-sterling-adoption-fair/',
 				savedQuery: 5756,
 				startTime: '1:00 PM',
 				endTime: '4:00 PM',
 			},
 		},
 
+		// =========================================================
+		// 4 PAWS ADOPTION EVENTS
+		// Update this list when new event dates are announced.
+		//
+		//   date   Must use YYYY-MM-DD format.
+		//   store  Must match a key in the stores object above.
+		//   status Either 'scheduled' or 'canceled'.
+		//
+		// TO CANCEL AN EVENT: change that row's status from
+		// 'scheduled' to 'canceled'. Keep the quotation marks and
+		// the comma. Leave the rest of the row alone. The website
+		// updates itself once the change is saved.
+		//
+		// Please do not delete a canceled event. Marking it keeps
+		// the notice visible to anyone who was planning to attend.
+		// =========================================================
+
 		adoptionEvents: [
-			{ date: '2026-07-25', store: 'fairfax' },
-			{ date: '2026-07-26', store: 'sterling' },
-			{ date: '2026-08-08', store: 'fairfax' },
-			{ date: '2026-08-16', store: 'sterling' },
-			{ date: '2026-09-12', store: 'fairfax' },
-			{ date: '2026-09-20', store: 'sterling' },
-			{ date: '2026-10-03', store: 'fairfax' },
-			{ date: '2026-10-11', store: 'sterling' },
-			{ date: '2026-11-07', store: 'fairfax' },
-			{ date: '2026-11-15', store: 'sterling' },
-			{ date: '2026-12-05', store: 'fairfax' },
-			{ date: '2026-12-13', store: 'sterling' },
+			{ date: '2026-07-25', store: 'fairfax', status: 'scheduled' },
+			{ date: '2026-07-26', store: 'sterling', status: 'scheduled' },
+			{ date: '2026-08-08', store: 'fairfax', status: 'scheduled' },
+			{ date: '2026-08-16', store: 'sterling', status: 'scheduled' },
+			{ date: '2026-09-12', store: 'fairfax', status: 'scheduled' },
+			{ date: '2026-09-20', store: 'sterling', status: 'scheduled' },
+			{ date: '2026-10-03', store: 'fairfax', status: 'scheduled' },
+			{ date: '2026-10-11', store: 'sterling', status: 'scheduled' },
+			{ date: '2026-11-07', store: 'fairfax', status: 'scheduled' },
+			{ date: '2026-11-15', store: 'sterling', status: 'scheduled' },
+			{ date: '2026-12-05', store: 'fairfax', status: 'scheduled' },
+			{ date: '2026-12-13', store: 'sterling', status: 'scheduled' },
 		],
 	};
 </script>
