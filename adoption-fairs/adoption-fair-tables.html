@@ -51,6 +51,70 @@ copy of the old ones is kept in this repo under deprecated/. -->
 		margin-top: 0.5rem;
 		font-size: 0.9rem;
 	}
+
+	/* =========================================================
+	   NARROW SCREENS
+	   The tables carry more columns than fit on a phone, so below
+	   this width the figure around each one scrolls sideways
+	   rather than squeezing every column down to a few characters.
+	   Everything here is inside the media query on purpose: on a
+	   full-size screen the tables lay themselves out the way they
+	   always have, and none of this touches them.
+	   ========================================================= */
+	@media (max-width: 767px) {
+		/* A box that scrolls has to be reachable from the keyboard,
+		   or someone not using a mouse has no way to move it. That
+		   is what the tabindex on the figure is for, and the
+		   outline makes it clear what is about to scroll. */
+		.paws-table-scroll {
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		.paws-table-scroll:focus-visible {
+			outline: 3px solid #3b5991;
+			outline-offset: 2px;
+		}
+
+		/* The width the table spreads out to once it is free of the
+		   screen, which is what gives it something to scroll. The
+		   cells still wrap as they normally would, so a long date
+		   takes a second line rather than dragging the whole table
+		   wider and forcing more scrolling on everyone. */
+		.paws-table-scroll table {
+			min-width: 38rem;
+		}
+
+		/* The date column stays in place while the rest slides
+		   past, so it is always clear which fair a phone number or
+		   attendees link belongs to. */
+		.paws-table-scroll th:first-child,
+		.paws-table-scroll td:first-child {
+			position: sticky;
+			left: 0;
+			z-index: 1;
+
+			/* Stands the column off from what slides beneath it. */
+			box-shadow: 1px 0 0 #c2cee5;
+		}
+
+		/* The theme paints its row colors on the row itself, which
+		   a stuck cell slides out from under, leaving it
+		   see-through. So the first column repeats those colors on
+		   the cells: the same blue as the heading, and the same
+		   banding as the rows. */
+		.paws-table-scroll thead th:first-child {
+			background-color: #3b5991;
+		}
+
+		.paws-table-scroll tbody tr:nth-child(odd) td:first-child {
+			background-color: #eaeffa;
+		}
+
+		.paws-table-scroll tbody tr:nth-child(even) td:first-child {
+			background-color: #ffffff;
+		}
+	}
 </style>
 
 <script>
@@ -238,8 +302,8 @@ copy of the old ones is kept in this repo under deprecated/. -->
 		// =========================================================
 		// BUILDING A TABLE
 		// Both tables share this builder. Each passes its own list of
-		// columns, which events to include, and an optional note to
-		// sit underneath.
+		// columns, which events to include, a label naming the table
+		// for screen readers, and an optional note to sit underneath.
 		// =========================================================
 
 		// Phone numbers are stored for reading, '703-352-3300'. A tel:
@@ -297,8 +361,18 @@ copy of the old ones is kept in this repo under deprecated/. -->
 				? `<p class="paws-table-note">${config.note}</p>`
 				: '';
 
+			// The figure is the part that scrolls sideways on a
+			// narrow screen. Read aloud, one scrolling box is hard to
+			// tell from another, so each table says which one it is.
+			// The note stays outside it, as a line of ordinary text
+			// should wrap rather than scroll.
 			container.innerHTML = `
-				<figure>
+				<figure
+					class="paws-table-scroll"
+					role="region"
+					aria-label="${config.label}"
+					tabindex="0"
+				>
 					<table class="paws-table">
 						<thead>
 							<tr>${headings}</tr>
@@ -349,6 +423,8 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 			renderTable({
 				selector: '.adoption-fair-table',
+
+				label: 'Upcoming adoption fairs',
 
 				filter: () => true,
 
@@ -417,6 +493,8 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 			renderTable({
 				selector: '.aluminum-cans-table',
+
+				label: 'Aluminum can collection dates',
 
 				filter: (event) => event.store === 'fairfax',
 
