@@ -1,8 +1,10 @@
 <!-- Generates the two adoption fair cards on the homepage. The cards are populated with the next two upcoming adoption fairs. If there are no upcoming adoption fairs, the cards will be hidden and a message will be displayed instead. -->
 
-<!-- REQUIRES adoption-fairs-data.html, which defines window.FourPaws.data.
-     That block must come before this one on the page. Event dates and store
-     details are edited there, not here. -->
+<!-- REQUIRES window.FourPaws.data, which is loaded site-wide by the adoption
+     fair data snippet in WordPress (kept in this repo as
+     adoption-fairs/adoption-fairs-data.html). That snippet is not part of any
+     page, so nothing needs to be added alongside this block. Event dates and
+     store details are edited in the snippet, not here. -->
 <style>
 	.event-date-today .elementor-heading-title {
 		color: #009688 !important;
@@ -49,10 +51,11 @@
 	document.addEventListener('DOMContentLoaded', () => {
 		// =========================================================
 		// SHARED EVENT DATA
-		// Event dates and store details live in the global data
-		// block (adoption-fairs-data.html), which must load before
-		// this script. Nothing here needs editing when the schedule
-		// changes.
+		// Event dates and store details come from window.FourPaws.data,
+		// set by the site-wide adoption fair data snippet. That snippet
+		// runs in the page header, so the data is already in place by
+		// the time this handler fires. Nothing in this file needs
+		// editing when the schedule changes.
 		// =========================================================
 
 		const data = window.FourPaws && window.FourPaws.data;
@@ -61,7 +64,7 @@
 
 		if (!Array.isArray(events) || !stores) {
 			console.error(
-				'Adoption fair data is missing. Check that the adoption fair data block is on this page and appears above the homepage adoption fair block.',
+				'Adoption fair data is missing. Check that the adoption fair data snippet is active in WordPress.',
 			);
 
 			return;
