@@ -1,0 +1,553 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Adoption Fair Functionality</title>
+		<style>
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 11pt;
+				line-height: 1.5;
+				color: #202124;
+				max-width: 7.5in;
+				margin: 0 auto;
+				padding: 24pt;
+			}
+
+			h1 {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 22pt;
+				color: #1b3a6b;
+				margin-bottom: 4pt;
+			}
+
+			h2 {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 16pt;
+				color: #1b3a6b;
+				border-bottom: 1px solid #c2cee5;
+				padding-bottom: 4pt;
+				margin-top: 28pt;
+			}
+
+			h3 {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 13pt;
+				color: #1b3a6b;
+				margin-top: 20pt;
+				margin-bottom: 6pt;
+			}
+
+			.subtitle {
+				color: #5f6368;
+				margin-top: 0;
+			}
+
+			.callout {
+				background-color: #eaeffa;
+				border-left: 4px solid #3b5991;
+				padding: 10pt 12pt;
+				margin: 14pt 0;
+			}
+
+			table {
+				border-collapse: collapse;
+				width: 100%;
+				font-size: 10.5pt;
+				margin: 10pt 0;
+			}
+
+			th {
+				background-color: #3b5991;
+				color: #ffffff;
+				text-align: left;
+				border: 1px solid #3b5991;
+				padding: 8pt;
+			}
+
+			td {
+				border: 1px solid #c2cee5;
+				padding: 8pt;
+				vertical-align: top;
+			}
+
+			tr:nth-child(even) td {
+				background-color: #eaeffa;
+			}
+
+			code {
+				font-family: 'Courier New', monospace;
+				font-size: 10pt;
+				background-color: #f1f3f4;
+				padding: 1pt 3pt;
+			}
+
+			pre {
+				font-family: 'Courier New', monospace;
+				font-size: 10pt;
+				background-color: #f1f3f4;
+				border: 1px solid #dadce0;
+				padding: 10pt;
+				white-space: pre-wrap;
+				margin: 10pt 0;
+			}
+
+			li {
+				margin-bottom: 6pt;
+			}
+
+			/* Keeps the PDF tidy: headings stay attached to the text under
+			   them, and tables and code blocks are not split across pages.
+			   Page margins are set by build-pdf.js so they can account for
+			   the page-number footer. */
+			@media print {
+				body {
+					max-width: none;
+					padding: 0;
+				}
+
+				h1,
+				h2,
+				h3 {
+					break-after: avoid;
+					page-break-after: avoid;
+				}
+
+				table,
+				pre,
+				.callout,
+				li {
+					break-inside: avoid;
+					page-break-inside: avoid;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Adoption Fair Functionality</h1>
+
+		<p class="subtitle">
+			A guide for keeping the 4Paws adoption fair schedule up to date.
+		</p>
+
+		<p>
+			This guide is for whoever keeps the 4Paws website up to date. It explains
+			where the adoption fair schedule lives, what parts of the site it feeds,
+			and how to make the usual changes. No coding knowledge is assumed.
+		</p>
+
+		<p class="callout">
+			<b>The short version:</b> there is one list of fair dates, and everything
+			on the site reads from it. Add a date once and it appears on the homepage,
+			on the Adoption Fairs and Events page, and on the store attendees pages,
+			all on its own.
+		</p>
+
+		<h2>1. Where the schedule lives</h2>
+
+		<p>
+			The schedule lives in a single WordPress <b>snippet</b> named
+			<b>&ldquo;FourPaws Global Data Object.&rdquo;</b> A snippet is a small
+			block of settings that WordPress loads on every page of the site. It is
+			not part of any one page, so you will not find it by editing the homepage
+			or the fairs page in Elementor.
+		</p>
+
+		<p>
+			<b>To find it:</b> log in to WordPress and open the snippets area (the
+			plugin used for site-wide code, e.g. WPCode / Code Snippets), then open
+			the snippet named <b>FourPaws Global Data Object</b>. It is set to load on
+			the whole site, in the footer.
+		</p>
+
+		<p>
+			That snippet is the only place any of this information is stored. It is
+			not repeated on the homepage, on the fairs page, or on any store page, so
+			there is never a second copy to keep in step.
+		</p>
+
+		<h3>What is in the snippet</h3>
+
+		<table>
+			<tr>
+				<th style="width: 30%">Section</th>
+				<th>What it holds</th>
+			</tr>
+			<tr>
+				<td><code>shelterId</code></td>
+				<td>4Paws' ID number in Shelterluv. Almost never changes.</td>
+			</tr>
+			<tr>
+				<td><code>availableCatsPage</code></td>
+				<td>The link used as a fallback when a fair has no cats posted yet.</td>
+			</tr>
+			<tr>
+				<td><code>stores</code></td>
+				<td>
+					One entry per store: name, address, phone number, store website,
+					attendees page, Shelterluv query, and usual hours.
+				</td>
+			</tr>
+			<tr>
+				<td><code>adoptionEvents</code></td>
+				<td>
+					The list of fair dates. This is the part that gets edited most often.
+				</td>
+			</tr>
+		</table>
+
+		<h3>What one fair date looks like</h3>
+
+		<pre>{ date: '2026-08-08', store: 'fairfax', status: 'scheduled' },</pre>
+
+		<ul>
+			<li>
+				<b>date</b> &mdash; always written year-month-day, e.g.
+				<code>2026-08-08</code> for August 8, 2026.
+			</li>
+			<li>
+				<b>store</b> &mdash; <code>fairfax</code> or <code>sterling</code>. It
+				must match one of the store entries above it, spelled exactly the same
+				way.
+			</li>
+			<li>
+				<b>status</b> &mdash; <code>scheduled</code> or <code>canceled</code>.
+			</li>
+		</ul>
+
+		<p>
+			Notice the quotation marks around each value, the commas between them, and
+			the comma at the end of the line. Those are required. Copy an existing
+			line and change the pieces inside the quotes rather than typing a line
+			from scratch.
+		</p>
+
+		<h2>2. What the schedule feeds</h2>
+
+		<p>Three separate parts of the site read from that one snippet:</p>
+
+		<table>
+			<tr>
+				<th style="width: 38%">Where on the site</th>
+				<th>What it shows</th>
+			</tr>
+			<tr>
+				<td>Homepage adoption fair cards</td>
+				<td>The next two upcoming fairs</td>
+			</tr>
+			<tr>
+				<td>Adoption Fairs and Events page</td>
+				<td>
+					The table of all upcoming fairs, plus the aluminum can drop-off table
+				</td>
+			</tr>
+			<tr>
+				<td>Each store's fair attendees page</td>
+				<td>
+					The cats attending that fair, plus that store's next fair date and
+					time
+				</td>
+			</tr>
+		</table>
+
+		<p>
+			None of those pages have any dates or store details typed into them. They
+			only display what the snippet gives them, which is why one edit updates
+			all three.
+		</p>
+
+		<h3>The homepage cards</h3>
+
+		<p>
+			The two cards always show the <b>next two dates on the list</b>, whichever
+			stores they belong to. For each one the card fills in the date, the store
+			name and address, the store's website link, the hours, and a link to that
+			store's attendees page.
+		</p>
+
+		<ul>
+			<li>
+				A fair happening <b>today</b> shows &ldquo;&ndash; Today!&rdquo; in
+				green.
+			</li>
+			<li>
+				A fair marked <b>canceled</b> shows &ldquo;&ndash; Canceled&rdquo; in
+				red.
+			</li>
+			<li>
+				If there are no upcoming dates at all, the cards hide themselves rather
+				than showing something wrong.
+			</li>
+		</ul>
+
+		<h3>The Adoption Fairs and Events page</h3>
+
+		<p>That page has two tables and both are built from the same list:</p>
+
+		<ul>
+			<li>
+				<b>The adoption fairs table</b> &mdash; every upcoming fair at every
+				store, earliest first, with the date and time, store location, and store
+				phone number. Canceled fairs stay in the table with a
+				<b>Canceled</b> note so anyone who was planning to come sees it.
+			</li>
+			<li>
+				<b>The aluminum cans table</b> &mdash; the same dates, but only the
+				Fairfax ones, because cans are collected at Petco Fairfax only. Cans are
+				always taken until 3 pm no matter how long that day's fair runs, so the
+				table says &ldquo;before 3 pm&rdquo; rather than the fair's hours. A
+				canceled fair still appears here as a normal row, since cans can still
+				be dropped off.
+			</li>
+		</ul>
+
+		<p class="callout">
+			<b>Past dates disappear on their own.</b> Once a date has passed, it stops
+			showing everywhere on the site automatically. You never have to delete old
+			rows.
+		</p>
+
+		<h3>The store attendees pages</h3>
+
+		<p>
+			Each store has its own page (for example, the Petco Fairfax adoption fair
+			page). That page does two things:
+		</p>
+
+		<ol>
+			<li>
+				<b>Lists the cats going to that fair.</b> The cats come from Shelterluv,
+				not from the snippet. The snippet only holds the
+				<b>saved query number</b> that tells the page which Shelterluv list to
+				pull. Adding or removing a cat is done in Shelterluv, and the page picks
+				up the change on its own.
+			</li>
+			<li>
+				<b>Fills in the next fair date and time</b> for that store, using the
+				schedule. If the store has no upcoming date on the schedule, the page's
+				&ldquo;TBD&rdquo; text is left as it is.
+			</li>
+		</ol>
+
+		<p>
+			The page figures out which store it belongs to from its own web address,
+			so every store page works the same way with nothing to edit on the page
+			itself.
+		</p>
+
+		<p>
+			If a fair has no cats posted yet, the page shows a friendly &ldquo;These
+			paws haven't checked in yet!&rdquo; panel with a link to all adoptable
+			cats, instead of an empty space.
+		</p>
+
+		<h3>When the attendees link appears</h3>
+
+		<p>
+			Attendee lists go live on the
+			<b>Monday of the week leading up to each fair.</b> Before that Monday:
+		</p>
+
+		<ul>
+			<li>
+				The homepage card shows &ldquo;Attendees list coming soon.&rdquo;
+				instead of the link.
+			</li>
+			<li>
+				The fairs table shows the date with no &ldquo;See Attendees&rdquo; link,
+				and the note under the table explains when it will appear.
+			</li>
+		</ul>
+
+		<p>
+			A canceled fair never gets an attendees link, since there are no
+			attendees.
+		</p>
+
+		<h2>3. How to make the usual changes</h2>
+
+		<p class="callout">
+			<b
+				>Every one of these is done in the FourPaws Global Data Object snippet,
+				not on any page.</b
+			>
+			After saving the snippet, refresh the site to see the change. If nothing
+			looks different, do a hard refresh (Cmd+Shift+R on a Mac) to clear the
+			cached page.
+		</p>
+
+		<h3>Add new fair dates</h3>
+
+		<p>
+			Add a new line to the <code>adoptionEvents</code> list, following the same
+			pattern as the lines around it:
+		</p>
+
+		<pre>{ date: '2027-01-09', store: 'fairfax', status: 'scheduled' },</pre>
+
+		<p>
+			The list does not have to be in date order. The site sorts the dates
+			itself.
+		</p>
+
+		<h3>Cancel a fair</h3>
+
+		<p>
+			Find that date's line and change <code>'scheduled'</code> to
+			<code>'canceled'</code>. Keep the quotation marks and the comma, and leave
+			the rest of the line alone.
+		</p>
+
+		<pre>{ date: '2026-08-08', store: 'fairfax', status: 'canceled' },</pre>
+
+		<p>
+			<b>Please do not delete a canceled fair.</b> Marking it keeps the
+			cancellation notice visible to anyone who was planning to attend. It will
+			drop off on its own once the date has passed.
+		</p>
+
+		<h3>Change the hours for one fair only</h3>
+
+		<p>
+			Add a start time, an end time, or both to that one line. They apply to
+			that date only:
+		</p>
+
+		<pre>
+{
+    date: '2026-08-08',
+    store: 'fairfax',
+    status: 'scheduled',
+    startTime: '11:00 AM',
+    endTime: '3:00 PM',
+},</pre
+		>
+
+		<p>
+			Write the times exactly the way they appear in the
+			<code>stores</code> section, for example <code>'11:00 AM'</code> or
+			<code>'3:00 PM'</code>. You can add just one of the two if only the start
+			or only the end moves; the other keeps the store's usual time.
+		</p>
+
+		<p>
+			<b>Most dates should not have times on them.</b> Leaving them off means
+			the fair follows the store's normal hours, so if a store permanently
+			changes its hours we only have to update it in one place.
+		</p>
+
+		<h3>Change a store's usual hours, phone number, or address</h3>
+
+		<p>
+			Edit that store's entry in the <code>stores</code> section. The change
+			flows to the homepage cards, both tables, and that store's attendees page
+			at once.
+		</p>
+
+		<h3>Change which cats show on an attendees page</h3>
+
+		<p>
+			That is done in <b>Shelterluv</b>, not here. Update the saved query in
+			Shelterluv and the page will follow. Only change the
+			<code>savedQuery</code> number in the snippet if a brand-new saved query
+			was created for that store.
+		</p>
+
+		<h3>Add a new store</h3>
+
+		<p>
+			This one needs a developer. It involves adding a store entry to the
+			snippet, creating the new fair page in WordPress, and setting up a
+			Shelterluv saved query for it. Everything else, including the homepage
+			cards and both tables, picks the new store up automatically once those
+			pieces are in place.
+		</p>
+
+		<h2>4. If something looks wrong</h2>
+
+		<p>
+			<b>Formatting mistakes are the most common cause.</b> A missing comma or
+			quotation mark can stop the whole schedule from loading. If you just
+			edited the snippet and the site looks wrong, undo your edit, save, and
+			confirm the site recovers, then try the edit again more carefully.
+		</p>
+
+		<table>
+			<tr>
+				<th style="width: 45%">What you see</th>
+				<th>What it usually means</th>
+			</tr>
+			<tr>
+				<td>
+					&ldquo;Our adoption fair schedule isn't loading right now&hellip;
+					contact info@fourpaws.org&rdquo;
+				</td>
+				<td>
+					The site cannot read the schedule at all. Usually the snippet was
+					deactivated, or a recent edit broke the formatting.
+				</td>
+			</tr>
+			<tr>
+				<td>
+					&ldquo;No adoption fairs are scheduled right now. Please check back
+					soon.&rdquo;
+				</td>
+				<td>
+					Not a bug. Every date on the list has already passed. Add the next
+					round of dates.
+				</td>
+			</tr>
+			<tr>
+				<td>The homepage cards are missing entirely</td>
+				<td>Same as above, or the snippet is not loading.</td>
+			</tr>
+			<tr>
+				<td>One row is missing from a table</td>
+				<td>
+					That date's store name does not match a store entry. Check the
+					spelling.
+				</td>
+			</tr>
+			<tr>
+				<td>
+					A store page says &ldquo;These paws haven't checked in yet!&rdquo;
+				</td>
+				<td>
+					No cats are in that store's Shelterluv saved query yet. Normal before
+					the list is built.
+				</td>
+			</tr>
+			<tr>
+				<td>
+					A store page says &ldquo;Sorry, we couldn't load the cats right
+					now.&rdquo;
+				</td>
+				<td>
+					Shelterluv could not be reached. Usually temporary, so try again
+					shortly.
+				</td>
+			</tr>
+			<tr>
+				<td>A store page shows &ldquo;TBD&rdquo; for the next fair date</td>
+				<td>
+					That store has no upcoming date on the schedule. Add its next date.
+				</td>
+			</tr>
+			<tr>
+				<td>No &ldquo;See Attendees&rdquo; link on an upcoming fair</td>
+				<td>
+					Expected. Links appear on the Monday of the week leading up to the
+					fair.
+				</td>
+			</tr>
+		</table>
+
+		<p>
+			If anything here does not clear up on its own, pass along which page you
+			were on and what you saw. Each of these situations also records an
+			explanation the developer can look up, which usually pins down the cause
+			right away.
+		</p>
+	</body>
+</html>
