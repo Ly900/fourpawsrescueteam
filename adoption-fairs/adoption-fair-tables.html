@@ -11,16 +11,47 @@ there is simply skipped.
 
 Past dates drop off on their own, so no one has to prune old rows by hand.
 
+The fairs table has an "Attendees" column. That link appears on the Monday of
+the week leading up to each fair, which is when the attendees page for that
+store goes live, and shows a dash until then. The homepage cards reveal their
+own attendees link on the same schedule, so if that timing ever changes it has
+to be changed in BOTH this file and homepage/homepage-adoption-fairs.html.
+
 REQUIRES window.FourPaws.data, which is loaded site-wide by the adoption fair
 data snippet in WordPress (kept in this repo as adoption-fairs-data.html). That
 snippet is not part of any page, so nothing needs to be added alongside this
-block. Event dates, store details, and fair hours are all edited in the snippet,
-not here.
+block. Event dates, store details, fair hours, and the attendees page addresses
+are all edited in the snippet, not here.
 
 If that snippet is ever missing or broken, the tables are replaced by a short
 message asking the visitor to email info@fourpaws.org, and the reason is written
 to the browser console. There are no hand-coded backup tables on the page; a
 copy of the old ones is kept in this repo under deprecated/. -->
+
+<style>
+	/* Hides text on screen while leaving it available to screen
+	   readers. Every "See Attendees" link reads the same out of
+	   context, so each one carries a hidden mention of its store and
+	   date. Named for this block rather than reusing the theme's
+	   screen-reader class, so a theme update cannot quietly change
+	   what it does. */
+	.paws-table-sr-only {
+		position: absolute !important;
+		width: 1px !important;
+		height: 1px !important;
+		padding: 0 !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		clip: rect(0, 0, 0, 0) !important;
+		white-space: nowrap !important;
+		border: 0 !important;
+	}
+
+	.paws-table-note {
+		margin-top: 0.5rem;
+		font-size: 0.9rem;
+	}
+</style>
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
@@ -44,7 +75,7 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 				if (container) {
 					container.innerHTML =
-						'<p style="color: red;margin-bottom:2rem;">Our adoption fair schedule isn\'t loading right now. Please contact 4Paws at <a href="mailto:info@fourpaws.org">info@fourpaws.org</a> for our upcoming fair dates.</p>';
+						'<p>Our adoption fair schedule isn\'t loading right now. Please contact 4 Paws at <a href="mailto:info@fourpaws.org">info@fourpaws.org</a> for our upcoming fair dates.</p>';
 				}
 			});
 		}
@@ -172,10 +203,43 @@ copy of the old ones is kept in this repo under deprecated/. -->
 		}
 
 		// =========================================================
+		// WHEN THE ATTENDEES LIST GOES LIVE
+		// Each store's attendees page fills with cats on the Monday of
+		// the week leading up to its fair. Before then the link would
+		// lead to an empty page, so the table shows a dash instead.
+		//
+		// This matches the homepage cards. The same rule is written
+		// out in homepage/homepage-adoption-fairs.html; changing the
+		// timing means editing both files.
+		// =========================================================
+
+		// Returns midnight on the Monday of the week leading up to the
+		// event. Events fall on a Saturday or Sunday, so this is the
+		// Monday 5-6 days earlier.
+		function getMondayBefore(eventDate) {
+			const monday = new Date(eventDate);
+			const dayOfWeek = monday.getDay(); // 0 = Sunday ... 6 = Saturday
+			const daysSinceMonday = (dayOfWeek + 6) % 7; // Mon = 0 ... Sun = 6
+
+			// If the event itself falls on a Monday, step back a full week.
+			monday.setDate(
+				monday.getDate() - (daysSinceMonday === 0 ? 7 : daysSinceMonday),
+			);
+			monday.setHours(0, 0, 0, 0);
+
+			return monday;
+		}
+
+		// A canceled fair has no attendees, so its link never appears.
+		function isAttendeesReady(event) {
+			return !isCanceled(event) && today >= getMondayBefore(event.dateObject);
+		}
+
+		// =========================================================
 		// BUILDING A TABLE
-		// Both tables share this builder. They differ only in which
-		// events they list and how the first cell reads, so each
-		// passes its own filter and its own date-and-time text.
+		// Both tables share this builder. Each passes its own list of
+		// columns, which events to include, and an optional note to
+		// sit underneath.
 		// =========================================================
 
 		// Phone numbers are stored for reading, '703-352-3300'. A tel:
@@ -207,22 +271,11 @@ copy of the old ones is kept in this repo under deprecated/. -->
 					return;
 				}
 
-				rows.push(`
-					<tr data-date="${event.date}">
-						<td>${config.formatDateAndTime(event, store)}</td>
-						<td>
-							<a
-								href="${store.storeUrl}"
-								target="_blank"
-								rel="noreferrer noopener"
-								>${store.name}</a
-							>
-						</td>
-						<td>
-							<a href="${toPhoneHref(store.phoneNumber)}">${store.phoneNumber}</a>
-						</td>
-					</tr>
-				`);
+				const cells = config.columns
+					.map((column) => `<td>${column.cell(event, store)}</td>`)
+					.join('');
+
+				rows.push(`<tr data-date="${event.date}">${cells}</tr>`);
 			});
 
 			// An empty table would read as though the page were broken.
@@ -232,21 +285,54 @@ copy of the old ones is kept in this repo under deprecated/. -->
 				return;
 			}
 
+			const headings = config.columns
+				.map((column) => `<th>${column.heading}</th>`)
+				.join('');
+
+			// The note is written out with the table rather than typed
+			// into its own Elementor widget, so it cannot be left
+			// stranded if the table moves, and it disappears along with
+			// the table if the schedule fails to load.
+			const note = config.note
+				? `<p class="paws-table-note">${config.note}</p>`
+				: '';
+
 			container.innerHTML = `
 				<figure>
 					<table class="paws-table">
 						<thead>
-							<tr>
-								<th>Date and Time</th>
-								<th>Store Location</th>
-								<th>Store Phone Number</th>
-							</tr>
+							<tr>${headings}</tr>
 						</thead>
 						<tbody>${rows.join('')}</tbody>
 					</table>
 				</figure>
+				${note}
 			`;
 		}
+
+		// =========================================================
+		// COLUMNS SHARED BY BOTH TABLES
+		// =========================================================
+
+		const storeColumn = {
+			heading: 'Store Location',
+
+			cell: (event, store) => `
+				<a
+					href="${store.storeUrl}"
+					target="_blank"
+					rel="noreferrer noopener"
+					>${store.name}</a
+				>
+			`,
+		};
+
+		const phoneColumn = {
+			heading: 'Store Phone Number',
+
+			cell: (event, store) =>
+				`<a href="${toPhoneHref(store.phoneNumber)}">${store.phoneNumber}</a>`,
+		};
 
 		// =========================================================
 		// BUILDING BOTH TABLES
@@ -266,22 +352,58 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 				filter: () => true,
 
-				formatDateAndTime(event, store) {
-					// An event may carry its own startTime or endTime when a
-					// store runs that one fair at unusual hours. Each falls
-					// back to the store's normal time independently, so a row
-					// can move just its start or just its end.
-					const timeRange = formatTimeRange(
-						event.startTime || store.startTime,
-						event.endTime || store.endTime,
-					);
+				columns: [
+					{
+						heading: 'Date and Time',
 
-					const dateAndTime = `${formatDate(event)}, ${timeRange}`;
+						cell(event, store) {
+							// An event may carry its own startTime or endTime
+							// when a store runs that one fair at unusual hours.
+							// Each falls back to the store's normal time
+							// independently, so a row can move just its start
+							// or just its end.
+							const timeRange = formatTimeRange(
+								event.startTime || store.startTime,
+								event.endTime || store.endTime,
+							);
 
-					return isCanceled(event)
-						? `${dateAndTime} - <b>Canceled</b>`
-						: dateAndTime;
-				},
+							const dateAndTime = `${formatDate(event)}, ${timeRange}`;
+
+							return isCanceled(event)
+								? `${dateAndTime} - <b>Canceled</b>`
+								: dateAndTime;
+						},
+					},
+
+					storeColumn,
+					phoneColumn,
+
+					{
+						heading: 'Attendees',
+
+						cell(event, store) {
+							if (!isAttendeesReady(event)) {
+								// A dash rather than an empty cell, so the row
+								// does not look unfinished. The note under the
+								// table explains when the link turns up.
+								return '&ndash;';
+							}
+
+							// Read aloud on its own, every link in this column
+							// would say the same thing, so each carries a
+							// hidden mention of which fair it belongs to.
+							return `
+								<a href="${store.attendeesPage}"
+									>Attendees<span class="paws-table-sr-only"> for ${
+										store.name
+									} on ${formatDate(event)}</span></a
+								>
+							`;
+						},
+					},
+				],
+
+				note: 'Attendee lists are posted the Monday before each fair.',
 
 				emptyMessage:
 					'No adoption fairs are scheduled right now. Please check back soon.',
@@ -298,12 +420,20 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 				filter: (event) => event.store === 'fairfax',
 
-				// Canceled fairs are listed here as ordinary rows. Cans can
-				// still be dropped off that day, so the "Canceled" note that
-				// the adoption fairs table shows would be misleading.
-				formatDateAndTime(event) {
-					return `${formatDate(event)}, before 3 pm`;
-				},
+				columns: [
+					{
+						heading: 'Date and Time',
+
+						// Canceled fairs are listed here as ordinary rows.
+						// Cans can still be dropped off that day, so the
+						// "Canceled" note that the adoption fairs table
+						// shows would be misleading.
+						cell: (event) => `${formatDate(event)}, before 3 pm`,
+					},
+
+					storeColumn,
+					phoneColumn,
+				],
 
 				emptyMessage:
 					'No can collection dates are scheduled right now. Please check back soon.',
