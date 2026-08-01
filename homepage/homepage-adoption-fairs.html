@@ -53,9 +53,10 @@
 		// SHARED EVENT DATA
 		// Event dates and store details come from window.FourPaws.data,
 		// set by the site-wide adoption fair data snippet. That snippet
-		// runs in the page header, so the data is already in place by
-		// the time this handler fires. Nothing in this file needs
-		// editing when the schedule changes.
+		// runs in the page footer, which is still before DOMContentLoaded
+		// fires, so the data is already in place by the time this handler
+		// runs. Nothing in this file needs editing when the schedule
+		// changes.
 		// =========================================================
 
 		const data = window.FourPaws && window.FourPaws.data;

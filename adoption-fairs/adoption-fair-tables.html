@@ -141,7 +141,7 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 				if (container) {
 					container.innerHTML =
-						'<p>Our adoption fair schedule isn\'t loading right now. Please contact 4 Paws at <a href="mailto:info@fourpaws.org">info@fourpaws.org</a> for our upcoming fair dates.</p>';
+						'<p>Our adoption fair schedule isn\'t loading right now. Please contact 4Paws at <a href="mailto:info@fourpaws.org">info@fourpaws.org</a> for our upcoming fair dates.</p>';
 				}
 			});
 		}
@@ -150,9 +150,10 @@ copy of the old ones is kept in this repo under deprecated/. -->
 		// SHARED EVENT DATA
 		// Event dates and store details come from window.FourPaws.data,
 		// set by the site-wide adoption fair data snippet. That snippet
-		// runs in the page header, so the data is already in place by
-		// the time this handler fires. Nothing in this file needs
-		// editing when the schedule changes.
+		// runs in the page footer, which is still before DOMContentLoaded
+		// fires, so the data is already in place by the time this handler
+		// runs. Nothing in this file needs editing when the schedule
+		// changes.
 		// =========================================================
 
 		const data = window.FourPaws && window.FourPaws.data;

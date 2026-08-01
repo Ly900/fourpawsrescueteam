@@ -241,8 +241,8 @@ upcoming fair on the schedule. -->
 		if (!container) return;
 
 		// Everything below comes from the site-wide data snippet, which
-		// runs in the page header and so is already in place by the time
-		// this handler fires.
+		// runs in the page footer, still before DOMContentLoaded fires,
+		// and so is already in place by the time this handler runs.
 		const data = window.FourPaws && window.FourPaws.data;
 
 		// Without that data there is no saved query to fetch and no link
