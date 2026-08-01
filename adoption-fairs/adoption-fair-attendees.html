@@ -1,13 +1,21 @@
-<!-- This file is used in an Elementor HTML block on the
-https://fourpaws.org/petco-fairfax-adoption-fair/ and
-https://fourpaws.org/petco-sterling-adoption-fair/ pages. It displays the cats
-attending that adoption fair in a grid of cards, pulled from Shelterluv using a
-saved query ID.
+<!-- This file is used in an Elementor HTML block on each store's adoption fair
+page. It displays the cats attending that fair in a grid of cards, pulled from
+Shelterluv using that store's saved query ID, and fills in the date and time of
+that store's next fair.
 
-The script reads the page URL to decide which fair it is on, so the same block
-works on both pages with no editing. Maintenance is only needed if a Shelterluv
-saved query ID changes, a page slug changes, or a new location is added - all of
-which are handled in the ADOPTION_FAIRS object in the script below. -->
+The script reads the page URL and matches it against the stores in the global
+data block, so the same block works on every fair page with no editing.
+
+REQUIRES window.FourPaws.data, which is loaded site-wide by the adoption fair
+data snippet in WordPress (kept in this repo as adoption-fairs-data.html). That
+snippet is not part of any page, so nothing needs to be added alongside this
+block. Saved query IDs, page paths, fair dates, and new locations are all
+maintained in the snippet, not here.
+
+The date and time are written into the Elementor text widget carrying the CSS
+class "next-fair-date". That widget is optional: a page without one still shows
+its cats, and the widget's own "TBD" text stays put if the store has no
+upcoming fair on the schedule. -->
 
 <style>
 	.paws-adoption-cards {
@@ -97,82 +105,211 @@ which are handled in the ADOPTION_FAIRS object in the script below. -->
 </style>
 
 <script>
-	// 4 Paws' Shelterluv organization ID.
-	const SHELTER_ID = 531;
+	// Lowercases a path and gives it one leading and one trailing
+	// slash, so '/Petco-Fairfax-Adoption-Fair' and
+	// '/petco-fairfax-adoption-fair/' compare as equal.
+	function normalizePath(path) {
+		return `/${String(path)
+			.toLowerCase()
+			.replace(/^\/+|\/+$/g, '')}/`;
+	}
 
-	// =========================================================
-	// ADOPTION FAIRS
-	// One entry per adoption fair page. The key must appear in
-	// that page's URL, which is how the script knows which fair
-	// it is displaying.
-	//
-	// Update savedQuery if Shelterluv's saved query ID changes.
-	// To add a location, add an entry whose key appears in the
-	// new page's slug.
-	// =========================================================
-
-	const ADOPTION_FAIRS = {
-		fairfax: { name: 'Petco Fairfax', savedQuery: 5752 },
-		sterling: { name: 'Petco Sterling', savedQuery: 5756 },
-	};
-
-	// Returns the fair matching the current page, or null if the URL
-	// does not name a known location.
+	// Returns the store whose adoption fair page we are on, or null if
+	// the URL does not name a known store.
 	//
 	// Only the pathname is checked, so WordPress preview parameters
 	// (?preview_id=...) are ignored and previews behave like the
 	// published page.
-	function getAdoptionFair() {
-		const path = window.location.pathname.toLowerCase();
-		const key = Object.keys(ADOPTION_FAIRS).find((slug) => path.includes(slug));
+	function findStoreForPage(stores) {
+		const path = normalizePath(window.location.pathname);
+		const entries = Object.entries(stores);
 
-		if (!key) return null;
+		// Normally the path is exactly the store's attendeesPage.
+		let entry = entries.find(
+			([, store]) =>
+				store.attendeesPage && normalizePath(store.attendeesPage) === path,
+		);
 
-		return {
-			key,
+		// If it is not, fall back to looking for the store key
+		// ('fairfax', 'sterling') anywhere in the path. This keeps the
+		// page working if a slug is renamed and the data snippet has not
+		// caught up yet.
+		if (!entry) {
+			entry = entries.find(([key]) => path.includes(key.toLowerCase()));
+		}
 
-			// 'sterling' becomes 'Sterling', used in the console messages.
-			label: key.charAt(0).toUpperCase() + key.slice(1),
+		return entry ? { key: entry[0], ...entry[1] } : null;
+	}
 
-			...ADOPTION_FAIRS[key],
-		};
+	// Anything other than a status of canceled is treated as going
+	// ahead, so a blank or misspelled status never hides a fair that is
+	// actually happening. Trimming and lowercasing means 'Canceled '
+	// still registers, and the double-l spelling is accepted too.
+	function isCanceled(event) {
+		const status = String(event.status || '')
+			.trim()
+			.toLowerCase();
+
+		return status === 'canceled' || status === 'cancelled';
+	}
+
+	// Returns this store's soonest remaining fair, or null if none is
+	// left on the schedule.
+	//
+	// Canceled dates are skipped rather than labeled. This page
+	// introduces the date as the next fair and lists the cats coming to
+	// it, so a called-off date would read as an invitation. The
+	// homepage cards are where cancellations get announced.
+	function findNextEventForStore(events, storeKey) {
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		const upcoming = (events || [])
+			.filter((event) => event.store === storeKey && !isCanceled(event))
+
+			// Noon prevents timezone conversion from changing the date.
+			.map((event) => ({
+				...event,
+				dateObject: new Date(`${event.date}T12:00:00`),
+			}))
+			.filter((event) => event.dateObject >= today)
+			.sort((a, b) => a.dateObject - b.dateObject);
+
+		return upcoming[0] || null;
+	}
+
+	// Builds '1:00 PM – 5:00 PM' from the store's usual hours. A single
+	// event can override the start, the end, or both when that one fair
+	// runs at unusual times, matching how the homepage cards read the
+	// same fields.
+	//
+	// Returns an empty string when no hours are recorded, so a store
+	// missing its times still gets a date rather than a stray dash.
+	function formatFairHours(event, store) {
+		const startTime = event.startTime || store.startTime;
+		const endTime = event.endTime || store.endTime;
+
+		if (startTime && endTime) {
+			return `${startTime} – ${endTime}`;
+		}
+
+		return startTime || endTime || '';
+	}
+
+	// Fills in the next fair date and time, if this page has a widget
+	// for it.
+	//
+	// The widget ships with a 'TBD' placeholder, which is left alone
+	// when the store has no upcoming fair. That way the page reads
+	// sensibly on its own if the schedule runs out.
+	function renderNextFairDate(event, store) {
+		// Elementor puts a custom class on the outer widget element, so
+		// aim for the inner container and fall back to the element
+		// itself in case the class was added directly to it.
+		const element =
+			document.querySelector('.next-fair-date .elementor-widget-container') ||
+			document.querySelector('.next-fair-date');
+
+		if (!element) return;
+
+		if (!event) {
+			console.log(
+				`No upcoming fair is scheduled for ${store.name}, so the date is ` +
+					'left as is. Add the next date to the adoption fair data snippet.',
+			);
+
+			return;
+		}
+
+		const formattedDate = event.dateObject.toLocaleDateString('en-US', {
+			weekday: 'long',
+			month: 'long',
+			day: 'numeric',
+			year: 'numeric',
+		});
+
+		const hours = formatFairHours(event, store);
+		const text = hours ? `${formattedDate}, ${hours}` : formattedDate;
+
+		// Matches the markup the widget already uses, so the bold styling
+		// set in Elementor carries over.
+		element.innerHTML = `<p><strong>${escapeHtml(text)}</strong></p>`;
 	}
 
 	document.addEventListener('DOMContentLoaded', async () => {
 		const container = document.querySelector('.paws-adoption-cards');
 		if (!container) return;
 
-		const fair = getAdoptionFair();
+		// Everything below comes from the site-wide data snippet, which
+		// runs in the page header and so is already in place by the time
+		// this handler fires.
+		const data = window.FourPaws && window.FourPaws.data;
+
+		// Without that data there is no saved query to fetch and no link
+		// to offer, so this is a real breakage rather than a fair with no
+		// cats yet.
+		if (!data || !data.stores) {
+			console.error(
+				'Adoption fair data is missing. Check that the adoption fair data snippet is active in WordPress.',
+			);
+
+			renderError(container);
+			return;
+		}
+
+		const store = findStoreForPage(data.stores);
 
 		// An unrecognized URL usually means a page slug changed or this
 		// block was added to a new page. Show the "no cats" panel so
 		// visitors still get a link to every adoptable cat.
-		if (!fair) {
+		if (!store) {
 			console.error(
-				'Adoption fair not recognized from the URL. Expected the page slug ' +
-					`to contain one of: ${Object.keys(ADOPTION_FAIRS).join(', ')}.`,
+				'Adoption fair not recognized from the URL. Expected the page path ' +
+					`to match one of: ${Object.keys(data.stores).join(', ')}.`,
 			);
 
-			container.innerHTML = createNoCatsHtml();
+			container.innerHTML = createNoCatsHtml(data.availableCatsPage);
+			return;
+		}
+
+		// Done before the cats are fetched so the date still appears if
+		// Shelterluv is slow or unreachable, or if this store has no
+		// saved query yet.
+		renderNextFairDate(
+			findNextEventForStore(data.adoptionEvents, store.key),
+			store,
+		);
+
+		// A store with no saved query has no attendee list set up yet.
+		if (!store.savedQuery) {
+			console.error(
+				`No Shelterluv saved query is set for ${store.name}. Add a savedQuery to that store in the adoption fair data snippet.`,
+			);
+
+			container.innerHTML = createNoCatsHtml(data.availableCatsPage);
 			return;
 		}
 
 		// Confirms in the browser console which fair was detected, so the
 		// page can be spot-checked without digging into the network tab.
 		console.log(
-			`Displaying cats for the ${fair.label} fair. ` +
-				`(${fair.name}, Shelterluv saved query ${fair.savedQuery}.)`,
+			`Displaying cats for ${store.name}. ` +
+				`(Shelterluv saved query ${store.savedQuery}.)`,
 		);
 
 		try {
-			const data = await fetchShelterluvAnimals(fair.savedQuery);
-			const animals = data.animals || [];
+			const response = await fetchShelterluvAnimals(
+				data.shelterId,
+				store.savedQuery,
+			);
 
-			renderAnimals(container, animals);
+			const animals = response.animals || [];
+
+			renderAnimals(container, animals, data.availableCatsPage);
 
 			console.log(
 				`${animals.length} ${animals.length === 1 ? 'cat' : 'cats'} ` +
-					`loaded for the ${fair.label} fair.`,
+					`loaded for ${store.name}.`,
 			);
 		} catch (error) {
 			console.error(error);
@@ -180,9 +317,9 @@ which are handled in the ADOPTION_FAIRS object in the script below. -->
 		}
 	});
 
-	async function fetchShelterluvAnimals(queryId) {
+	async function fetchShelterluvAnimals(shelterId, queryId) {
 		const response = await fetch(
-			`https://new.shelterluv.com/api/v3/available-animals/${SHELTER_ID}?saved_query=${queryId}`,
+			`https://new.shelterluv.com/api/v3/available-animals/${shelterId}?saved_query=${queryId}`,
 		);
 
 		if (!response.ok) {
@@ -192,24 +329,24 @@ which are handled in the ADOPTION_FAIRS object in the script below. -->
 		return response.json();
 	}
 
-	function renderAnimals(container, animals) {
+	function renderAnimals(container, animals, availableCatsPage) {
 		container.innerHTML = '';
 
 		if (!animals.length) {
-			container.innerHTML = createNoCatsHtml();
+			container.innerHTML = createNoCatsHtml(availableCatsPage);
 			return;
 		}
 
 		container.innerHTML = animals.map(createAnimalCardHtml).join('');
 	}
 
-	function createNoCatsHtml() {
+	function createNoCatsHtml(availableCatsPage) {
 		return `
             <div class="paws-no-cats">
                 <p><strong>These paws haven't checked in yet!</strong></p>
                 <p>Our featured attendees will be announced soon. Until then, you can meet all of our adoptable cats.</p>
                 <p>
-                    <a href="https://fourpaws.org/adopt-a-cat/available-cats/" class="paws-no-cats-link">
+                    <a href="${escapeHtml(availableCatsPage)}" class="paws-no-cats-link">
                         View All Adoptable Cats →
                     </a>
                 </p>
