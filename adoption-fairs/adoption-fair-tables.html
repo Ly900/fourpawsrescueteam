@@ -11,11 +11,13 @@ there is simply skipped.
 
 Past dates drop off on their own, so no one has to prune old rows by hand.
 
-The fairs table has an "Attendees" column. That link appears on the Monday of
-the week leading up to each fair, which is when the attendees page for that
-store goes live, and shows a dash until then. The homepage cards reveal their
-own attendees link on the same schedule, so if that timing ever changes it has
-to be changed in BOTH this file and homepage/homepage-adoption-fairs.html.
+In the fairs table, a "See Attendees" link sits next to the date once that
+store's attendees page goes live, which is the Monday of the week leading up to
+the fair. Until then the date stands on its own, and the note under the table
+explains when the link turns up. A canceled fair never gets one. The homepage
+cards reveal their own attendees link on the same schedule, so if that timing
+ever changes it has to be changed in BOTH this file and
+homepage/homepage-adoption-fairs.html.
 
 REQUIRES window.FourPaws.data, which is loaded site-wide by the adoption fair
 data snippet in WordPress (kept in this repo as adoption-fairs-data.html). That
@@ -49,7 +51,7 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 	.paws-table-note {
 		margin-top: 0.5rem;
-		font-size: 0.9rem;
+		font-size: 1rem !important;
 	}
 
 	/* =========================================================
@@ -82,7 +84,7 @@ copy of the old ones is kept in this repo under deprecated/. -->
 		   takes a second line rather than dragging the whole table
 		   wider and forcing more scrolling on everyone. */
 		.paws-table-scroll table {
-			min-width: 38rem;
+			min-width: 30rem;
 		}
 
 		/* The date column stays in place while the rest slides
@@ -270,7 +272,7 @@ copy of the old ones is kept in this repo under deprecated/. -->
 		// WHEN THE ATTENDEES LIST GOES LIVE
 		// Each store's attendees page fills with cats on the Monday of
 		// the week leading up to its fair. Before then the link would
-		// lead to an empty page, so the table shows a dash instead.
+		// lead to an empty page, so the date stands on its own.
 		//
 		// This matches the homepage cards. The same rule is written
 		// out in homepage/homepage-adoption-fairs.html; changing the
@@ -445,41 +447,41 @@ copy of the old ones is kept in this repo under deprecated/. -->
 
 							const dateAndTime = `${formatDate(event)}, ${timeRange}`;
 
-							return isCanceled(event)
-								? `${dateAndTime} - <b>Canceled</b>`
-								: dateAndTime;
-						},
-					},
-
-					storeColumn,
-					phoneColumn,
-
-					{
-						heading: 'Attendees',
-
-						cell(event, store) {
-							if (!isAttendeesReady(event)) {
-								// A dash rather than an empty cell, so the row
-								// does not look unfinished. The note under the
-								// table explains when the link turns up.
-								return '&ndash;';
+							if (isCanceled(event)) {
+								return `${dateAndTime} - <b>Canceled</b>`;
 							}
 
-							// Read aloud on its own, every link in this column
-							// would say the same thing, so each carries a
-							// hidden mention of which fair it belongs to.
+							// Only a handful of fairs have their list up at any
+							// one time, so the link rides along with the date
+							// rather than taking a column of its own that would
+							// sit empty on nearly every row.
+							if (!isAttendeesReady(event)) {
+								return dateAndTime;
+							}
+
+							// A screen reader can read the links on a page as a
+							// list, away from the dates beside them, and every
+							// one of these would say the same thing. The hidden
+							// half names the fair it belongs to.
+							// The hyphen sits outside the link, the same way the
+							// canceled note above is set off from the date.
 							return `
+								${dateAndTime} -
 								<a href="${store.attendeesPage}"
-									>Attendees<span class="paws-table-sr-only"> for ${
+									><strong>See Attendees</strong
+									><span class="paws-table-sr-only"> for ${
 										store.name
 									} on ${formatDate(event)}</span></a
 								>
 							`;
 						},
 					},
+
+					storeColumn,
+					phoneColumn,
 				],
 
-				note: 'Attendee lists are posted the Monday before each fair.',
+				note: '*Attendee lists are posted the Monday before each fair.',
 
 				emptyMessage:
 					'No adoption fairs are scheduled right now. Please check back soon.',
