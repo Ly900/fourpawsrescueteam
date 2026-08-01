@@ -46,6 +46,28 @@
 		//
 		// Please do not delete a canceled event. Marking it keeps
 		// the notice visible to anyone who was planning to attend.
+		//
+		// TO GIVE ONE EVENT DIFFERENT HOURS: add startTime and/or
+		// endTime to that row. They apply to that date only and
+		// override the store's usual hours:
+		//
+		//     {
+		//         date: '2026-08-08',
+		//         store: 'fairfax',
+		//         status: 'scheduled',
+		//         startTime: '11:00 AM',
+		//         endTime: '3:00 PM',
+		//     },
+		//
+		// Write the times the same way they appear in the stores
+		// object, for example '11:00 AM' or '3:00 PM'. You can add
+		// just one of the two if only the start or only the end
+		// moves; the other keeps the store's usual time.
+		//
+		// Most rows should NOT have times on them. Leaving them off
+		// means the event follows the store's normal hours above, so
+		// if a store permanently changes its hours we only have to
+		// update it in one place instead of on every date.
 		// =========================================================
 
 		adoptionEvents: [

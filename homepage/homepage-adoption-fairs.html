@@ -1,4 +1,8 @@
-<!-- Generates the two adoptin fair cards on the homepage. The cards are populated with the next two upcoming adoption fairs. If there are no upcoming adoption fairs, the cards will be hidden and a message will be displayed instead. -->
+<!-- Generates the two adoption fair cards on the homepage. The cards are populated with the next two upcoming adoption fairs. If there are no upcoming adoption fairs, the cards will be hidden and a message will be displayed instead. -->
+
+<!-- REQUIRES adoption-fairs-data.html, which defines window.FourPaws.data.
+     That block must come before this one on the page. Event dates and store
+     details are edited there, not here. -->
 <style>
 	.event-date-today .elementor-heading-title {
 		color: #009688 !important;
@@ -44,56 +48,24 @@
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		// =========================================================
-		// 4 PAWS ADOPTION EVENTS
-		// Update this list when new event dates are announced.
-		// Dates must use YYYY-MM-DD format.
-		//
-		// To mark an event as canceled, add the optional
-		// canceled property:
-		//     { date: '2026-07-26', location: 'sterling', canceled: true }
+		// SHARED EVENT DATA
+		// Event dates and store details live in the global data
+		// block (adoption-fairs-data.html), which must load before
+		// this script. Nothing here needs editing when the schedule
+		// changes.
 		// =========================================================
 
-		const events = [
-			{ date: '2026-07-25', location: 'fairfax' },
-			{ date: '2026-07-26', location: 'sterling' },
-			{ date: '2026-08-08', location: 'fairfax' },
-			{ date: '2026-08-16', location: 'sterling' },
-			{ date: '2026-09-12', location: 'fairfax' },
-			{ date: '2026-09-20', location: 'sterling' },
-			{ date: '2026-10-03', location: 'fairfax' },
-			{ date: '2026-10-11', location: 'sterling' },
-			{ date: '2026-11-07', location: 'fairfax' },
-			{ date: '2026-11-15', location: 'sterling' },
-			{ date: '2026-12-05', location: 'fairfax' },
-			{ date: '2026-12-13', location: 'sterling' },
-		];
+		const data = window.FourPaws && window.FourPaws.data;
+		const events = data && data.adoptionEvents;
+		const stores = data && data.stores;
 
-		// =========================================================
-		// LOCATION DETAILS
-		// These only need to change if a venue, address, URL,
-		// or event time changes.
-		// =========================================================
+		if (!Array.isArray(events) || !stores) {
+			console.error(
+				'Adoption fair data is missing. Check that the adoption fair data block is on this page and appears above the homepage adoption fair block.',
+			);
 
-		const locations = {
-			fairfax: {
-				name: 'Petco Fairfax',
-				url: 'https://stores.petco.com/va/fairfax/pet-supplies-fairfax-va-769.html',
-				attendeesUrl: 'https://fourpaws.org/petco-fairfax-adoption-fair/',
-				addressLine1: '10708 Fairfax Blvd',
-				addressLine2:
-					'Fairfax&nbsp;<abbr title="Virginia">VA</abbr>,&nbsp;22030',
-				time: '1:00 PM – 5:00 PM',
-			},
-
-			sterling: {
-				name: 'Petco Sterling',
-				url: 'https://stores.petco.com/va/sterling/pet-supplies-sterling-va-1892.html',
-				attendeesUrl: 'https://fourpaws.org/petco-sterling-adoption-fair/',
-				addressLine1: '22000 Dulles Retail Plz',
-				addressLine2: 'Sterling&nbsp;<abbr title="Virginia">VA</abbr>, 20166',
-				time: '1:00 PM – 4:00 PM',
-			},
-		};
+			return;
+		}
 
 		// =========================================================
 		// CARD ELEMENTS
@@ -107,6 +79,51 @@
 		// Stop if neither card exists on the page.
 		if (!cards.some(Boolean)) {
 			return;
+		}
+
+		// =========================================================
+		// ADDRESS FORMATTING
+		// The shared data keeps each address as one plain string.
+		// The cards show it on two lines, with the state abbreviated
+		// and non-breaking spaces holding "Fairfax VA, 22030"
+		// together.
+		// =========================================================
+
+		const stateNames = {
+			VA: 'Virginia',
+			MD: 'Maryland',
+			DC: 'District of Columbia',
+		};
+
+		// '10708 Fairfax Blvd, Fairfax, VA 22030' becomes
+		// ['10708 Fairfax Blvd', 'Fairfax&nbsp;<abbr ...>VA</abbr>,&nbsp;22030'].
+		// An address that does not follow the expected
+		// "street, city, ST zip" shape is passed through unchanged
+		// rather than dropped, so a typo never blanks out a card.
+		function formatAddressLines(address) {
+			const firstComma = address.indexOf(',');
+
+			if (firstComma === -1) {
+				return [address, ''];
+			}
+
+			const street = address.slice(0, firstComma).trim();
+			const remainder = address.slice(firstComma + 1).trim();
+
+			// city, ST zip
+			const match = remainder.match(/^(.+),\s*([A-Z]{2})\s+([\d-]+)$/);
+
+			if (!match) {
+				return [street, remainder];
+			}
+
+			const [, city, state, zip] = match;
+			const stateName = stateNames[state] || state;
+
+			return [
+				street,
+				`${city}&nbsp;<abbr title="${stateName}">${state}</abbr>,&nbsp;${zip}`,
+			];
 		}
 
 		// =========================================================
@@ -160,10 +177,12 @@
 				return;
 			}
 
-			const location = locations[event.location];
+			const store = stores[event.store];
 
-			if (!location) {
-				console.error(`No location details found for "${event.location}".`);
+			if (!store) {
+				console.error(
+					`No store details found for "${event.store}". Check that the store name on this event matches a key in the stores object.`,
+				);
 
 				card.hidden = true;
 				return;
@@ -208,8 +227,19 @@
 			// previously marked.
 			eventDate.classList.remove('event-date-today', 'event-date-canceled');
 
+			// Anything other than a status of canceled is treated as
+			// going ahead, so a blank or misspelled status never hides
+			// an event that is actually happening. Trimming and
+			// lowercasing means "Canceled " still registers, and the
+			// double-l spelling is accepted too.
+			const status = String(event.status || '')
+				.trim()
+				.toLowerCase();
+
+			const isCanceled = status === 'canceled' || status === 'cancelled';
+
 			// A canceled event takes priority over the Today message.
-			if (event.canceled) {
+			if (isCanceled) {
 				dateElement.textContent = `${formattedDate} - Canceled`;
 				eventDate.classList.add('event-date-canceled');
 			} else if (event.date === todayString) {
@@ -220,27 +250,36 @@
 				dateElement.textContent = formattedDate;
 			}
 
+			const [addressLine1, addressLine2] = formatAddressLines(store.address);
+
 			locationElement.innerHTML = `
             <p>
                 <a
-                    href="${location.url}"
+                    href="${store.storeUrl}"
                     target="_blank"
                     rel="noopener"
                 >
-                    ${location.name}
+                    ${store.name}
                 </a>
             </p>
             <div class="address-line">
-                ${location.addressLine1}
+                ${addressLine1}
             </div>
             <div class="address-line">
-                ${location.addressLine2}
+                ${addressLine2}
             </div>
         `;
 
-			timeElement.innerHTML = `<p>${location.time}</p>`;
+			// An event may carry its own startTime or endTime when a store
+			// runs that one fair at unusual hours. Each falls back to the
+			// store's normal time independently, so a row can move just its
+			// start or just its end.
+			const startTime = event.startTime || store.startTime;
+			const endTime = event.endTime || store.endTime;
 
-			// Point the "Meet the attendees" link at this location's page.
+			timeElement.innerHTML = `<p>${startTime} – ${endTime}</p>`;
+
+			// Point the "Meet the attendees" link at this store's page.
 			// Only the href is swapped so the link text and the arrow icon
 			// beside it stay editable in Elementor. The link is
 			// supplementary, so a missing widget is not fatal.
@@ -252,7 +291,7 @@
 				const attendeesLink = attendeesElement.querySelector('a');
 
 				if (attendeesLink) {
-					attendeesLink.href = location.attendeesUrl;
+					attendeesLink.href = store.attendeesPage;
 				} else {
 					console.error('The attendees widget has no link.', card);
 				}
@@ -268,9 +307,9 @@
 				}
 
 				const attendeesReady =
-					!event.canceled && today >= getMondayBefore(event.dateObject);
+					!isCanceled && today >= getMondayBefore(event.dateObject);
 
-				const attendeesPending = !event.canceled && !attendeesReady;
+				const attendeesPending = !isCanceled && !attendeesReady;
 
 				card.classList.toggle('attendees-ready', attendeesReady);
 				card.classList.toggle('attendees-pending', attendeesPending);
