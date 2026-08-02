@@ -1,4 +1,4 @@
-# Adoption Fairs: How the Schedule Works
+# Adoption Fairs Guide
 
 This guide is for whoever keeps the 4Paws website up to date. It explains where
 the adoption fair schedule lives, what parts of the site it feeds, and how to
