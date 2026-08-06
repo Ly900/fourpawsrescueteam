@@ -338,6 +338,23 @@ upcoming fair on the schedule. -->
 			return;
 		}
 
+		// Sort by last name (ascending). If last names are equal, fall back
+		// to comparing the full name to provide a stable order.
+		animals.sort((a, b) => {
+			// Remove any parenthetical content before extracting last names.
+			const stripParens = (s) =>
+				String(s || '')
+					.replace(/\s*\([^)]*\)\s*/g, ' ')
+					.trim();
+			const an = stripParens(a.name);
+			const bn = stripParens(b.name);
+			const al = (an.split(/\s+/).slice(-1)[0] || '').toLowerCase();
+			const bl = (bn.split(/\s+/).slice(-1)[0] || '').toLowerCase();
+			const cmp = al.localeCompare(bl, undefined, { sensitivity: 'base' });
+			if (cmp !== 0) return cmp;
+			return an.localeCompare(bn, undefined, { sensitivity: 'base' });
+		});
+
 		container.innerHTML = animals.map(createAnimalCardHtml).join('');
 		updateAttendeeCount(animals.length);
 	}
