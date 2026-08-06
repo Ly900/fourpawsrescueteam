@@ -357,7 +357,9 @@ upcoming fair on the schedule. -->
 	function createAnimalCardHtml(animal) {
 		const photos = Object.values(animal.photos || {});
 		const cover = photos.find((photo) => photo.isCover) || photos[0];
-		const imageUrl = cover?.url || '';
+		const placeholder =
+			'https://fourpaws.org/wp-content/uploads/2026/08/default_cat.png';
+		const imageUrl = cover?.url || placeholder;
 		const name = animal.name || 'Cat';
 		const ageText = formatAge(animal.birthday);
 
@@ -366,10 +368,11 @@ upcoming fair on the schedule. -->
                href="${escapeHtml(animal.public_url || '#')}"
                target="_blank"
                rel="noopener">
-                <img
-                    src="${escapeHtml(imageUrl)}"
-                    alt="${escapeHtml(name)}"
-                    loading="lazy">
+				<img
+					src="${escapeHtml(imageUrl)}"
+					alt="${escapeHtml(name)}"
+					loading="lazy"
+					onerror="this.onerror=null;this.src='https://fourpaws.org/wp-content/uploads/2026/08/default_cat.png'">
                 <div class="paws-cat-content">
                     <h3 class="paws-cat-name">${escapeHtml(name)}</h3>
                     <p class="paws-cat-details">
