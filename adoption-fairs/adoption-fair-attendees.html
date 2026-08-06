@@ -334,10 +334,21 @@ upcoming fair on the schedule. -->
 
 		if (!animals.length) {
 			container.innerHTML = createNoCatsHtml(availableCatsPage);
+			updateAttendeeCount(0);
 			return;
 		}
 
 		container.innerHTML = animals.map(createAnimalCardHtml).join('');
+		updateAttendeeCount(animals.length);
+	}
+
+	function updateAttendeeCount(count) {
+		const p =
+			document.querySelector(
+				'.num-of-attendees .elementor-widget-container p',
+			) || document.querySelector('.num-of-attendees p');
+		if (!p) return;
+		p.innerHTML = `<strong>${escapeHtml(String(count))}</strong>`;
 	}
 
 	function createNoCatsHtml(availableCatsPage) {
